@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[优秀 excellent]]></title>
+    <url>%2F2019%2F04%2F03%2F%E4%BC%98%E7%A7%80%20excellent%2F</url>
+    <content type="text"><![CDATA[题目描述 优秀 (excellent.cpp/c/pas) 题目描述： 有n个人，决定选出他们中最优秀的人 输入描述： 第一行一个n表示有n个人参与了投票，下一行n个数，第i个数表示第i个人投给了谁，每个人会且只会投给一个人，问得到票数最多的人是谁，数据保证得到票数最多的人得到的票数一定大于n/2。 输出描述： 一行一个整数表示最优秀的人 输入样例： 5 1 2 1 1 3 输出样例： 1 数据范围： 对于60%的数据1&lt;=n&lt;=2000 对于80%的数据1&lt;=n&lt;=2000000空间128M 对于100%的数据1&lt;=n&lt;=2000000空间10M 补充说明 输入的投票不一定小于等于n! 题解 摩尔投票法 简单说明： 摩尔投票算法是基于这个事实：每次从序列里选择两个不相同的数字删除掉（或称为“抵消”），最后剩下一个数字或几个相同的数字，就是出现次数大于总数一半的那个。 个人觉得比较好的说明： 如何理解摩尔投票算法？ - 喝七喜的回答 - 知乎 代码 1234567891011121314151617181920212223242526272829303132333435363738394041#include &lt;cstdio&gt;inline char get_char()&#123; static const int SIZE = 2 &lt;&lt; 16; static char buffer[SIZE], *S, *T; if (S == T) &#123; T = (S = buffer) + fread(buffer, 1, SIZE, stdin); if (S == T) return EOF; &#125; return *S++;&#125;#define getchar get_charinline int get_int()&#123; char c; int ret = 0; for (c = getchar(); c &lt; '0' || c &gt; '9'; c = getchar()) ; for (; c &gt;= '0' &amp;&amp; c &lt;= '9'; c = getchar()) ret = (ret &lt;&lt; 1) + (ret &lt;&lt; 3) + (c - '0'); return ret;&#125;int main()&#123; freopen("excellent.in", "r", stdin); freopen("excellent.out", "w", stdout); int n = get_int(), a = 0, k = 0; for (int i = 0; i &lt; n; ++i) &#123; int tmp = get_int(); a = tmp == k ? a + 1 : a - 1; if (a &lt; 0) k = tmp, a = 1; &#125; printf("%d", k); return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>摩尔投票法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[19-3-27模拟赛T3 队列 queue]]></title>
+    <url>%2F2019%2F03%2F27%2F19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT3-%E9%98%9F%E5%88%97-queue%2F</url>
+    <content type="text"><![CDATA[原题:CF118D 题目描述 队列(queue.pas/cpp/c) 题目描述 小f很喜欢动漫，其中她最喜欢看海绵宝宝，有一天她拥有了n1个黄色海绵宝宝玩偶和n2个“粉红大胖呆”派大星玩偶。她要给这n1+n2个玩偶排排队（为什么要排队呢？很无聊吧我们可以把小f看做一个很捏戳的人）。但是为了使排的队列比较美观，小f不允许有超过k1个海绵宝宝排在一起，也不允许有超过k2个派大星排在一起。 现在告诉你n1，n2，k1，k2，问你一共有多少种可行的排列方式。 由于结果可能很大，只需要把结果mod 100000000输出即可。 输入格式 第一行四个用空格隔开的非负整数n1,n2,k1,k2 输出格式 一行一个非负整数 样例 queue.in 1232 3 1 22 4 1 1 queue.out 12350 第一组样例说明 合法的序列有：12122, 12212, 21212, 21221, 22121 1是海绵宝宝，2是派大星。 数据规模及约定 30%的数据 n1+n2&lt;=20 100%的数据 n1,n2&lt;=100 k1,k2&lt;=10 f[i][j][k]表示当前在做第i个，已经选了j个海绵宝宝，当前这一位是海绵宝宝还是派大星 状态转移方程: f[i][j][0]=f[i][j][0]+f[i-k][j-k][1]; f[i][j][1]=f[i][j][1]+f[i-k][j][0]; 最后输出f[n1+n2][n1][0]+f[n1+n2][n1][1] 注意模P 优美的循环: 123456789101112131415161718192021222324#include &lt;cstdio&gt;#include &lt;algorithm&gt;using std::max;const int N=100,P=100000000;int f[(N&lt;&lt;1)|1][N+1][2];int main()&#123; freopen("queue.in","r",stdin); freopen("queue.out","w",stdout); int n1,n2,k1,k2; scanf("%d%d%d%d",&amp;n1,&amp;n2,&amp;k1,&amp;k2); f[0][0][0]=f[0][0][1]=1%P; for (int i=1;i&lt;=n1+n2;++i) for (int j=max(0,i-n2);j&lt;=n1&amp;&amp;j&lt;=i;++j) &#123; for (int k=1;k&lt;=k1&amp;&amp;k&lt;=j;++k) f[i][j][0]=(f[i][j][0]+f[i-k][j-k][1])%P; for (int k=1;k&lt;=k2&amp;&amp;k&lt;=i-j;++k) f[i][j][1]=(f[i][j][1]+f[i-k][j][0])%P; &#125; printf("%d",(f[n1+n2][n1][0]+f[n1+n2][n1][1])%P); return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>模拟赛</tag>
+        <tag>DP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[19-3-27模拟赛T2 幸运数 lucky]]></title>
+    <url>%2F2019%2F03%2F27%2F19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT2-%E5%B9%B8%E8%BF%90%E6%95%B0-lucky%2F</url>
+    <content type="text"><![CDATA[原题:CF118C 题目描述 幸运数(lucky.pas/cpp/c) 题目描述 小f是一个喜欢数学的人，她特别喜欢一些数字。 她认为的幸运数必须满足的要求是该数当中某个数字出现的次数大于等于K。举个例子当K=3时，1112就是幸运数字，因为1的次数大于等于3了，但是11244就不是幸运数字。 现在告诉你小f的k值和一个n位数字S，现在我们需要把S修改成幸运数字（如果S一开始就是幸运数字修改代价就是0）。 修改操作的定义：改变S的一些数位上的数字。 修改代价的定义：修改操作后的数字与原数位上的数字的差的绝对值的和。 注意：修改过后S任然是一个n位数。 S可能含前导0。 输入格式 第一行两个用空格隔开的正整数N(N&lt;=10000)和k，表示接下来是一个N位数，小f告诉你的K值，第二行一个N位正整数S。 输出格式 第一行一个数，表示最小修改代价，第二行表示在最小修改代价时的幸运数，如果有多个，输出字典序最小的那一个。（输出的解可能含前导0） 样例 lucky.in 123456786 58981963 253310 60001112223 lucky.out 123456784888188053330000002223 数据规模及约定 20%的数据 k&lt;=N&lt;=10 50%的数据 k&lt;=N&lt;=1000 100%的数据1&lt;=k&lt;=N&lt;=10000 记录所有数字出现次数，枚举最终个数大于等于k的数字a，从差比较小的数开始改成a，注意如果被改的数比a大，从前向后改，否则从后向前改，最后统计最小 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061#include &lt;algorithm&gt;#include &lt;cstdio&gt;#include &lt;cstring&gt;using std::min;const int N = 10000;char s[N + 1], ans[10][N + 1];int cnt[10], c[10], ss[10];int main()&#123; freopen("lucky.in", "r", stdin); freopen("lucky.out", "w", stdout); int n, k, p = 0; scanf("%d%d%s", &amp;n, &amp;k, s); for (int i = 0; i &lt; n; ++i) ++cnt[s[i] - '0']; for (int i = 0; i &lt; 10; ++i) &#123; int tmp1 = k - cnt[i], j = 1; while (tmp1 &gt; 0) &#123; int tmp2; if (i + j &lt; 10) &#123; tmp2 = min(tmp1, cnt[i + j]); tmp1 -= tmp2; c[i + j] = tmp2; ss[i] += tmp2 * j; &#125; if (i - j &gt;= 0) &#123; tmp2 = min(tmp1, cnt[i - j]); tmp1 -= tmp2; c[i - j] = tmp2; ss[i] += tmp2 * j; &#125; ++j; &#125; for (int j = 0; j &lt; n; ++j) if (s[j] - '0' &gt; i &amp;&amp; c[s[j] - '0']) &#123; --c[s[j] - '0']; ans[i][j] = i + '0'; &#125; for (int j = n - 1; ~j; --j) if (s[j] - '0' &lt; i &amp;&amp; c[s[j] - '0']) &#123; --c[s[j] - '0']; ans[i][j] = i + '0'; &#125; for (int j = 0; j &lt; n; ++j) if (!ans[i][j]) ans[i][j] = s[j]; if (ss[i] == ss[p] ? strcmp(ans[i], ans[p]) &lt; 0 : ss[i] &lt; ss[p]) p = i; &#125; printf("%d\n%s", ss[p], ans[p]); return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>模拟赛</tag>
+        <tag>Codeforces</tag>
+        <tag>模拟</tag>
+        <tag>贪心</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[19-3-27模拟赛T1 单圈 cycle]]></title>
+    <url>%2F2019%2F03%2F27%2F19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT1-%E5%8D%95%E5%9C%88-cycle%2F</url>
+    <content type="text"><![CDATA[原题:CF117C 题目描述 单圈(cycle.pas/cpp/c) 题目描述 最近小f在研究图论的问题，小f对有向图的环特别感兴趣，但是小f希望找出图中所有的环，但是这个这个问题非常困难。 现在小f把这个问题化简，她只需要找到有向图中的一个单圈就可以了。 单圈的定义：单圈有三个点A，B，C组成，满足A–&gt;B（有向边），B–&gt;C，C–&gt;A（存在A到B，B到C，C到A这三条有向边,且A，B，C为三个不同的点） 因为图中可能有多个单圈你只要输出其中一个即可,若找不到一个单圈，则输出-1。 输入格式 第一行一个正整数N，即该有向图有N个点，接下来一个N*N的邻接矩阵map，若map[i][j]=1,则表示点i到点j有一条有向边。 输出格式 一行用空格隔开的三个正整数或者找不到输出-1。 样例 cycle.in 12345650010010000010011110111000 cycle.out 11 3 2 数据规模及约定 40%的数据 N&lt;=100 100%的数据 N&lt;=5000 直接DFS/BFS判环，记录父亲节点，如果访问到爷爷节点即为答案 坑点：按A-&gt;B-&gt;C输出 DFS: 12345678910111213141516171819202122232425262728293031323334353637383940414243444546#include &lt;cstdio&gt;#include &lt;cstdlib&gt;const int N = 5000;char s[N + 100];bool vis[N + 1];int g[N + 1][N], cnt[N + 1], fa[N + 1];void dfs(int k)&#123; vis[k] = true; for (register int i = 0; i &lt; cnt[k]; ++i) &#123; int v = g[k][i]; if (v == fa[fa[k]]) &#123; printf("%d %d %d", v, fa[k], k); exit(0); &#125; if (!vis[v]) &#123; fa[v] = k; dfs(v); &#125; &#125;&#125;int main()&#123; freopen("cycle.in", "r", stdin); freopen("cycle.out", "w", stdout); int n; scanf("%d\n", &amp;n); for (register int i = 1; i &lt;= n; ++i) &#123; gets(s); for (register int j = 0; j &lt; n; ++j) if (s[j] == '1') g[i][cnt[i]++] = j + 1; &#125; for (register int i = 1; i &lt;= n; ++i) if (!vis[i]) dfs(i); puts("-1"); return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>模拟赛</tag>
+        <tag>环</tag>
+        <tag>DFS</tag>
+        <tag>BFS</tag>
+        <tag>Codeforces</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[OI实用工具 持续更新ing]]></title>
+    <url>%2F2019%2F03%2F21%2FOI%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0ing%2F</url>
+    <content type="text"><![CDATA[专为各种模拟赛设计的实用工具，还在持续更新中，隔段时间来看看会有惊喜 目前已经实现： 快速自动建立所有需要的文件夹和文件 自动导入模板 自定义缺省源 带计时的自动对拍 正在实现： 简单的配置文件 图形界面 自动编译 常见数据生成器 更友好的报错 更准确的计时 项目地址：https://github.com/sxyz2019/OIer-Auxiliary 下载(注：可能会落后代码几个版本，毕竟要测试) 欢迎提出BUG以及新功能的想法]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具相关</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[关于最大连续子段和]]></title>
+    <url>%2F2019%2F03%2F21%2F%E5%85%B3%E4%BA%8E%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%AE%B5%E5%92%8C%2F</url>
+    <content type="text"><![CDATA[如果一定要取一个数，把还原为0写在记录最小值后面 123sum+=a[i];ans=max(ans,sum);sum=sum&lt;0?0:sum; 否则写在前面 环上求最大连续子段和： 先做一遍最大连续子段和 再做一遍最小连续子段和 max(总和-最小连续子段和,最大连续子段和)即为答案 注：一定要取一个时要特判]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>最大连续子段和</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[题解 滑稽树前做游戏，滑稽树后做交易 trade]]></title>
+    <url>%2F2019%2F03%2F21%2F%E9%A2%98%E8%A7%A3-%E6%BB%91%E7%A8%BD%E6%A0%91%E5%89%8D%E5%81%9A%E6%B8%B8%E6%88%8F%EF%BC%8C%E6%BB%91%E7%A8%BD%E6%A0%91%E5%90%8E%E5%81%9A%E4%BA%A4%E6%98%93-trade%2F</url>
+    <content type="text"><![CDATA[题目名称我就不吐槽了。。。 题目描述 滑稽树前做游戏，滑稽树后做交易 (trade.cpp,3000ms,1024MB) 题目描述 滑稽果被排成一列，poison 的 lsr 要求每个顾客只能买一段连续的区间。 sxd 来这里买滑稽果，他对每个滑稽果都有一个喜爱程度 Ai 是一个整数，-100≤Ai≤100， 并保证∑Ai &lt;=2147483647，最终的满意度为所有他买到的滑稽果的喜欢程度之和，如果和 为正（不管是正多少，只要大于 0 即可），则他满意了。 现在 sxd 想知道在他满意的条件下最多能买到多少滑稽果。 输入描述 第一行一个正整数 n，表示 lsr 一共摘了 n 个滑稽果。 第二行 n 个整数，每个整数 Ai 表示 sxd 第 i 个滑稽果的喜爱程度为多少。 输出描述 一行一个正整数 ans 表示在 sxd 满意的条件下最多能买到多少滑稽果 输入样例 1250 0 -7 -6 1 输出样例 11 数据范围及提示 对于 30%的数据，n&lt;=5*10^3 对于 60%的数据，n&lt;=10^5 对于所有数据，n&lt;=3*10^7 请注意本题的内存限制，完成代码后请务必计算一下你程序的内存是否超限。 由于本题的输入过大，请必须使用基于 fread 的输入模板，见题目目录下的 fastIO.cpp 题解 区间伸缩(尺取法) 代码 ver.0 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include &lt;cstdio&gt;#include &lt;algorithm&gt;#include &lt;cctype&gt;using std::max;using std::min;const int N=30000000;int a[N],sum[N+1],s[N+1];inline char gc()&#123; static char buf[1&lt;&lt;12],*p1=buf,*p2=buf; return (p1==p2)&amp;&amp;(p2=(p1=buf)+fread(buf,1,1&lt;&lt;12,stdin),p1==p2)?EOF:*p1++;&#125;#define dd c = gc()inline int read()&#123; static int x; x = 0; int dd; bool f = false; for(; !isdigit(c); dd) if(c == '-') f = true; for(; isdigit(c); dd) x = (x&lt;&lt;1) + (x&lt;&lt;3) + (c^48); if(f) x = -x; return x;&#125;#undef ddint main()&#123; freopen("trade.in","r",stdin); freopen("trade.out","w",stdout); int n,ans=0,r=0; n=read(); for (int i=0;i&lt;n;++i) a[i]=read(); for (int i=n-1;~i;--i) &#123; sum[i]=sum[i+1]+a[i]; s[i]=min(sum[i],s[i+1]);//s[n]=0,代表取从i开始取全部,需要更新 &#125; for (int i=0;i&lt;n;++i) &#123; r=max(r,i+1); while (r&lt;=n&amp;&amp;s[r]&lt;sum[i])//到n为止,代表取从i开始取全部,需要更新 &#123; ans=max(ans,r-i); ++r; &#125; if (r==n) break; &#125; printf("%d",ans); return 0;&#125; ver.1 优化 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758#include &lt;cctype&gt;#include &lt;cstdio&gt;const int N = 30000000;int sum[N + 1], s[N + 1];inline char gc()&#123; static char buf[1 &lt;&lt; 24], *p1 = buf, *p2 = buf; return (p1 == p2) &amp;&amp; (p2 = (p1 = buf) + fread(buf, 1, 1 &lt;&lt; 24, stdin), p1 == p2) ? EOF : *p1++;&#125;#define dd c = gc()inline int read()&#123; static int x; x = 0; int dd; bool f = false; for (; !isdigit(c); dd) if (c == '-') f = true; for (; isdigit(c); dd) x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + (c ^ 48); return f ? -x : x;&#125;#undef ddinline int max(int x, int y)&#123; return x &gt; y ? x : y;&#125;int main()&#123; freopen("trade.in", "r", stdin); freopen("trade.out", "w", stdout); int n, ans = 0, r = 1; n = read(); sum[0] = read(); for (int i = 1; i &lt; n; ++i) sum[i] = sum[i - 1] + read(); s[n - 1] = sum[n - 1]; for (int i = n - 2; ~i; --i) s[i] = max(sum[i], s[i + 1]); for (int i = 0; i &lt; n &amp;&amp; r &lt; n; ++i, ++r) &#123; if (n - i &lt;= ans) break; if (s[r] &lt;= sum[i]) continue; while (r &lt;= n &amp;&amp; s[r] &gt; sum[i]) ++r; ans = r - 1 - i; &#125; printf("%d", ans); return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>尺取法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[题解Luogu P2749 【[USACO5.1]夜空繁星Starry Night】]]></title>
+    <url>%2F2019%2F03%2F21%2F%E9%A2%98%E8%A7%A3Luogu-P2749-%E3%80%90-USACO5-1-%E5%A4%9C%E7%A9%BA%E7%B9%81%E6%98%9FStarry-Night%E3%80%91%2F</url>
+    <content type="text"><![CDATA[HASH判重 我的方法可能比较奇怪 注意一定要判断截出来矩形的形状和图形内部其他图形 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145#include &lt;bits/stdc++.h&gt;using namespace std;typedef long long ll;const int N = 110, M = 510, dx[8] = &#123;1, 1, 1, -1, -1, -1, 0, 0&#125;, dy[8] = &#123;-1, 0, 1, -1, 0, 1, -1, 1&#125;;const ll key[5] = &#123;998244353, 1004535809, 1000000007, 1000000009, 123468723167&#125;;char s[N][N], ans[M], c = 'a';ll ht[M][8][5];int vis[N][N], k1[M], k2[M], k3[M], k4[M], cnt, n, m;void dfs(int x, int y)&#123; k1[cnt] = min(k1[cnt], x); k2[cnt] = max(k2[cnt], x); k3[cnt] = min(k3[cnt], y); k4[cnt] = max(k4[cnt], y); vis[x][y] = cnt; s[x][y] = '0'; for (int i = 0; i &lt; 8; ++i) &#123; int tx = x + dx[i], ty = y + dy[i]; if (~tx &amp;&amp; tx &lt; n &amp;&amp; ~ty &amp;&amp; ty &lt; m &amp;&amp; s[tx][ty] == '1') dfs(tx, ty); &#125;&#125;void hash1(int k)&#123; for (int i = k1[k]; i &lt;= k2[k]; ++i) for (int j = k3[k]; j &lt;= k4[k]; ++j) for (int p = 0; p &lt; 5; ++p) ht[k][0][p] = ((ht[k][0][p] &lt;&lt; 1) + (vis[i][j] == k)) % key[p];&#125;void hash2(int k)&#123; for (int i = k2[k]; i &gt;= k1[k]; --i) for (int j = k3[k]; j &lt;= k4[k]; ++j) for (int p = 0; p &lt; 5; ++p) ht[k][1][p] = ((ht[k][1][p] &lt;&lt; 1) + (vis[i][j] == k)) % key[p];&#125;void hash3(int k)&#123; for (int i = k1[k]; i &lt;= k2[k]; ++i) for (int j = k4[k]; j &gt;= k3[k]; --j) for (int p = 0; p &lt; 5; ++p) ht[k][2][p] = ((ht[k][2][p] &lt;&lt; 1) + (vis[i][j] == k)) % key[p];&#125;void hash4(int k)&#123; for (int i = k2[k]; i &gt;= k1[k]; --i) for (int j = k4[k]; j &gt;= k3[k]; --j) for (int p = 0; p &lt; 5; ++p) ht[k][3][p] = ((ht[k][3][p] &lt;&lt; 1) + (vis[i][j] == k)) % key[p];&#125;void hash5(int k)&#123; for (int j = k3[k]; j &lt;= k4[k]; ++j) for (int i = k1[k]; i &lt;= k2[k]; ++i) for (int p = 0; p &lt; 5; ++p) ht[k][4][p] = ((ht[k][4][p] &lt;&lt; 1) + (vis[i][j] == k)) % key[p];&#125;void hash6(int k)&#123; for (int j = k3[k]; j &lt;= k4[k]; ++j) for (int i = k2[k]; i &gt;= k1[k]; --i) for (int p = 0; p &lt; 5; ++p) ht[k][5][p] = ((ht[k][5][p] &lt;&lt; 1) + (vis[i][j] == k)) % key[p];&#125;void hash7(int k)&#123; for (int j = k4[k]; j &gt;= k3[k]; --j) for (int i = k1[k]; i &lt;= k2[k]; ++i) for (int p = 0; p &lt; 5; ++p) ht[k][6][p] = ((ht[k][6][p] &lt;&lt; 1) + (vis[i][j] == k)) % key[p];&#125;void hash8(int k)&#123; for (int j = k4[k]; j &gt;= k3[k]; --j) for (int i = k2[k]; i &gt;= k1[k]; --i) for (int p = 0; p &lt; 5; ++p) ht[k][7][p] = ((ht[k][7][p] &lt;&lt; 1) + (vis[i][j] == k)) % key[p];&#125;int main()&#123; scanf("%d%d", &amp;m, &amp;n); for (int i = 0; i &lt; n; ++i) scanf("%s", s[i]); memset(k1, 127, sizeof k1); memset(k3, 127, sizeof k3); for (int i = 0; i &lt; n; ++i) for (int j = 0; j &lt; m; ++j) if (s[i][j] == '1') ++cnt, dfs(i, j); for (int i = 1; i &lt;= cnt; ++i) &#123; hash1(i); hash2(i); hash3(i); hash4(i); hash5(i); hash6(i); hash7(i); hash8(i); &#125; for (int i = 1; i &lt;= cnt; ++i) if (!ans[i]) &#123; ans[i] = c++; for (int j = i + 1; j &lt;= cnt; ++j) if (k2[j] - k1[j] == k2[i] - k1[i] || k2[j] - k1[j] == k4[i] - k3[i] || k4[j] - k3[j] == k2[i] - k1[i] || k4[j] - k3[j] == k4[i] - k3[i]) for (int k = 0; k &lt; 8; ++k) &#123; bool flag = true; for (int p = 0; p &lt; 5; ++p) if (ht[i][0][p] != ht[j][k][p]) &#123; flag = false; break; &#125; if (flag) &#123; ans[j] = ans[i]; break; &#125; &#125; &#125; for (int i = 0; i &lt; n; ++i) &#123; for (int j = 0; j &lt; m; ++j) putchar(ans[vis[i][j]] ? ans[vis[i][j]] : '0'); putchar('\n'); &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+        <tag>hash</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[题解 CF353A 【Domino】]]></title>
+    <url>%2F2019%2F03%2F21%2F%E9%A2%98%E8%A7%A3-CF353A-%E3%80%90Domino%E3%80%91%2F</url>
+    <content type="text"><![CDATA[判断上下奇偶性并判断有没有上下奇偶性不一致的牌即可 分4种情况讨论 奇偶性不同怎么变都不行，输出-1 都是偶数直接输出0 都是奇数需要找到上下奇偶性不同的牌，输出1，否则不可能，输出-1 123456789101112131415161718192021222324252627282930#include &lt;bits/stdc++.h&gt;using namespace std;int main()&#123; int n, c = 0, d = 0; bool flag = false; scanf("%d", &amp;n); for (int i = 1; i &lt;= n; ++i) &#123; int a, b; scanf("%d%d", &amp;a, &amp;b); if ((a &amp; 1) ^ (b &amp; 1)) flag = true; c ^= a &amp; 1; d ^= b &amp; 1; &#125; if (c ^ d) puts("-1"); else if (c) &#123; if (flag) puts("1"); else puts("-1"); &#125; else puts("0"); return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>Codeforces</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[题解Luogu P1217 【[USACO1.5]回文质数 Prime Palindromes】]]></title>
+    <url>%2F2019%2F03%2F21%2F%E9%A2%98%E8%A7%A3Luogu-P1217-%E3%80%90-USACO1-5-%E5%9B%9E%E6%96%87%E8%B4%A8%E6%95%B0-Prime-Palindromes%E3%80%91%2F</url>
+    <content type="text"><![CDATA[没有SPJ差评 有大佬说没有偶数位的答案，然而我并不会证明，而且有11这个特例 所以还是老老实实爆搜吧 生成回文数并判断质数 注意一定要排序。。。被坑了 12345678910111213141516171819202122232425262728293031323334353637383940414243#include &lt;algorithm&gt;#include &lt;cmath&gt;#include &lt;cstdio&gt;using std::sort;const int LEN = 5;int s[LEN], l, r, ans[30000], cnt;bool check(int n)&#123; if (n &lt; 2) return false; int m = sqrt(n); for (int i = 2; i &lt;= m; ++i) if (!(n % i)) return false; return true;&#125;void dfs(int k)&#123; int a = 0, b; for (int i = 0; i &lt; k; ++i) a = a * 10 + s[i]; b = a; for (int i = k - 1; ~i; --i) a = a * 10 + s[i]; for (int i = k - 2; ~i; --i) b = b * 10 + s[i]; if (b &gt; r) return; if (b &gt;= l &amp;&amp; check(b)) ans[cnt++] = b; if (a &gt;= l &amp;&amp; a &lt;= r &amp;&amp; check(a)) ans[cnt++] = a; for (int i = 0; i &lt;= 9; ++i) &#123; s[k] = i; dfs(k + 1); &#125;&#125;int main()&#123; scanf("%d%d", &amp;l, &amp;r); for (s[0] = 1; s[0] &lt;= 9; s[0] += 2) dfs(1); sort(ans, ans + cnt); for (int i = 0; i &lt; cnt; ++i) printf("%d\n", ans[i]); return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+        <tag>Luogu</tag>
+        <tag>判断质数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[题解Lougu P1314 【聪明的质监员】]]></title>
+    <url>%2F2019%2F03%2F21%2F%E9%A2%98%E8%A7%A3Lougu-P1314-%E3%80%90%E8%81%AA%E6%98%8E%E7%9A%84%E8%B4%A8%E7%9B%91%E5%91%98%E3%80%91%2F</url>
+    <content type="text"><![CDATA[pascal题解~ 二分枚举w,然后计算对应的y 注意使用前缀和优化,可以让y的计算达到O(n+m) 12345678910111213141516171819202122232425262728293031323334353637383940var w,v,l,r,sum,t:array[0..200000] of longint; n,m,i,left,right,mid:longint; s,t1,t2:int64;function calc(k:longint):int64;begin for i:=1 to n do begin sum[i]:=sum[i-1]; t[i]:=t[i-1]; if w[i]&gt;=k then begin inc(sum[i]); inc(t[i],v[i]); end; end; calc:=0; for i:=1 to m do inc(calc,(sum[r[i]]-sum[l[i]-1])*(t[r[i]]-t[l[i]-1]));end;begin read(n,m,s); left:=maxlongint; for i:=1 to n do begin read(w[i],v[i]); if v[i]&lt;left then left:=v[i]; if v[i]&gt;right then right:=v[i]; end; inc(right); for i:=1 to m do read(l[i],r[i]); while left&lt;=right do begin mid:=(left+right)div 2; if calc(mid)&lt;s then right:=mid-1 else left:=mid+1; end; t1:=s-calc(left); t2:=calc(right)-s; if t1&lt;t2 then write(t1) else write(t2);end.]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>二分查找</tag>
+        <tag>枚举答案</tag>
+        <tag>Luogu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[题解Luogu P2940 【[USACO09FEB]音乐妖精The Leprechaun】]]></title>
+    <url>%2F2019%2F03%2F21%2F%E9%A2%98%E8%A7%A3Luogu-P2940-%E3%80%90-USACO09FEB-%E9%9F%B3%E4%B9%90%E5%A6%96%E7%B2%BEThe-Leprechaun%E3%80%91%2F</url>
+    <content type="text"><![CDATA[O(n2)O(n^2)O(n2)算法 把矩阵分成好多个环，用O(n)时间求环上最大连续子段和(对最大连续子段和以及sum减去最小连续子段和取最大值) 注意要特判全部是负数的情况(最大连续子段和可能会一个都不取) 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 200;int ma[N &lt;&lt; 1][N &lt;&lt; 1];int main()&#123; int n, m, ans = -1E9; scanf("%d", &amp;n); m = n &lt;&lt; 1; for (int i = 0; i &lt; n; ++i) for (int j = 0; j &lt; n; ++j) &#123; scanf("%d", &amp;ma[i][j]); ans = max(ans, ma[i][j]); ma[i + n][j] = ma[i][j + n] = ma[i + n][j + n] = ma[i][j]; &#125; if (ans &lt;= 0) &#123; printf("%d", ans); return 0; &#125; for (int i = 0; i &lt; n; ++i) &#123; int a = 0, b = 0, c = 0, d = 0, e = 0, f = 0, g = 0, h = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0, sum1 = 0, sum2 = 0, sum3 = 0, sum4 = 0; for (int j = 0; j &lt; n; ++j) &#123; sum1 += ma[i][j]; a += ma[i][j]; if (a &lt; 0) a = 0; sum2 += ma[j][i]; b += ma[j][i]; if (b &lt; 0) b = 0; c += ma[i][j]; if (c &gt; 0) c = 0; tmp1 = min(tmp1, c); d += ma[j][i]; if (d &gt; 0) d = 0; tmp2 = min(tmp2, d); sum3 += ma[i + j][j]; e += ma[i + j][j]; if (e &lt; 0) e = 0; sum4 += ma[j][i + j]; f += ma[j][i + j]; if (f &lt; 0) f = 0; g += ma[i + j][j]; if (g &gt; 0) g = 0; tmp3 = min(tmp3, g); h += ma[j][i + j]; if (h &gt; 0) h = 0; tmp4 = min(tmp4, h); ans = max(ans, max(max(a, b), max(e, f))); &#125; ans = max(ans, max(max(sum1 - tmp1, sum2 - tmp2), max(sum3 - tmp3, sum4 - tmp4))); &#125; for (int i = n - 1; i &lt; m - 1; ++i) &#123; int a = 0, b = 0, tmp = 0, sum = 0; for (int j = 0; j &lt; n; ++j) &#123; sum += ma[i - j][j]; a += ma[i - j][j]; if (a &lt; 0) a = 0; b += ma[i - j][j]; if (b &gt; 0) b = 0; tmp = min(tmp, b); ans = max(ans, a); &#125; ans = max(ans, sum - tmp); &#125; printf("%d", ans); return 0;&#125;]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>环</tag>
+        <tag>最大连续子段和</tag>
+        <tag>Luogu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2019%2F03%2F11%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick Start Create a new post 1$ hexo new "My New Post" More info: Writing Run server 1$ hexo server More info: Server Generate static files 1$ hexo generate More info: Generating Deploy to remote sites 1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+</search>
