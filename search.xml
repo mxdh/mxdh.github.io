@@ -32,9 +32,9 @@
       </categories>
       <tags>
         <tag>模拟赛</tag>
+        <tag>Codeforces</tag>
         <tag>模拟</tag>
         <tag>贪心</tag>
-        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -46,10 +46,10 @@
       </categories>
       <tags>
         <tag>模拟赛</tag>
-        <tag>Codeforces</tag>
         <tag>环</tag>
         <tag>DFS</tag>
         <tag>BFS</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -129,9 +129,9 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Luogu</tag>
         <tag>二分查找</tag>
         <tag>枚举答案</tag>
+        <tag>Luogu</tag>
       </tags>
   </entry>
   <entry>
