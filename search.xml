@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[蒟蒻JXY的水水小题目 solutions]]></title>
+    <url>%2F2019%2F08%2F23%2F%E8%92%9F%E8%92%BBJXY%E7%9A%84%E6%B0%B4%E6%B0%B4%E5%B0%8F%E9%A2%98%E7%9B%AE-solutions%2F</url>
+    <content type="text"><![CDATA[Solutions T1 知识点：博弈论，记忆化搜索 Subtask2: 原题 https://www.luogu.org/problem/CF39E Subtaks3: 其实本质没有变。。。 就是卡了一下内存（自以为），可能在各位 dalao 看来一点都没加强。。。 fi,jf_{i,j}fi,j​ 表示当前有 iii 个球，jjj 个盒子，当前操作的人最后是输还是赢。记忆化搜索，如果 fi+1,jf_{i+1,j}fi+1,j​ 和 fi,j+1f_{i,j+1}fi,j+1​ 都是输，那么 fi,jf_{i,j}fi,j​ 就是赢（基础的博弈论）。 我们来看看fff数组的大小。如果fff数组是int类型，50∗1000000∗450*1000000*450∗1000000∗4B,大约需要191MB内存，太大了。 我们只需要记录三种状态，输(1)、赢(2)和未计算(0)，char就完全够用了。50∗100000050*100000050∗1000000B,大约48MB,还是太大。 考虑ji&gt;=kj^i&gt;=kji&gt;=k的情况是非法的，我们不需要记录这些状态。我们将fff数组改为vector&lt;char&gt; f[maxb+1],枚举iii和jjj,如果ji&lt;kj^i&lt;kji&lt;k就f[i].push_back(0)，特判一下i=1i=1i=1的情况，就可以了。 T2 知识点：动态规划 原题：https://www.luogu.org/problem/SP4318 由于每条船都要占据它的锚点，每条船不能有重合的部分，所以考虑某段是某条船的末尾，最多只有一种可能。f[i]f[i]f[i]表示段iii之前最多能捕多少鱼，如果段iii可以成为船kkk的末尾，则f[i]=max(f[i−1],f[i−c[k]+sum[i]−sum[i−c[k])f[i]=max(f[i-1],f[i-c[k]+sum[i]-sum[i-c[k])f[i]=max(f[i−1],f[i−c[k]+sum[i]−sum[i−c[k])，否则f[i]=f[i−1]f[i]=f[i-1]f[i]=f[i−1]。 T3 知识点：动态开点线段树 原题：https://www.luogu.org/problem/P4915 操作1就是求(∑i=1r∑j=1iwi)−(∑i=1l−1∑j=1iwi)r−l+1\frac{\left(\sum_{i=1}^{r} \sum_{j=1}^{i} w_{i}\right)-\left(\sum_{i=1}^{l-1} \sum_{j=1}^{i} w_{i}\right)}{r-l+1}r−l+1(∑i=1r​∑j=1i​wi​)−(∑i=1l−1​∑j=1i​wi​)​,也就是两次查询前缀的前缀和。 而对于求∑j=1t∑k=1Jak\sum_{j=1}^{t} \sum_{k=1}^{J} a_{k}∑j=1t​∑k=1J​ak​，发现∑j=1t∑k=1Jak\sum_{j=1}^{t} \sum_{k=1}^{J} a_{k}∑j=1t​∑k=1J​ak​=∑j=1i(i−j+1)×aj\sum_{j=1}^{i}(i-j+1) \times a_{j}∑j=1i​(i−j+1)×aj​。 动态开点线段树维护即可。]]></content>
+      <tags>
+        <tag>模拟赛</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[优秀 excellent]]></title>
     <url>%2F2019%2F04%2F03%2F%E4%BC%98%E7%A7%80%20excellent%2F</url>
     <content type="text"><![CDATA[题目描述 优秀 (excellent.cpp/c/pas) 题目描述： 有n个人，决定选出他们中最优秀的人 输入描述： 第一行一个n表示有n个人参与了投票，下一行n个数，第i个数表示第i个人投给了谁，每个人会且只会投给一个人，问得到票数最多的人是谁，数据保证得到票数最多的人得到的票数一定大于n/2。 输出描述： 一行一个整数表示最优秀的人 输入样例： 5 1 2 1 1 3 输出样例： 1 数据范围： 对于60%的数据1&lt;=n&lt;=2000 对于80%的数据1&lt;=n&lt;=2000000空间128M 对于100%的数据1&lt;=n&lt;=2000000空间10M 补充说明 输入的投票不一定小于等于n! 题解 摩尔投票法 简单说明： 摩尔投票算法是基于这个事实：每次从序列里选择两个不相同的数字删除掉（或称为“抵消”），最后剩下一个数字或几个相同的数字，就是出现次数大于总数一半的那个。 个人觉得比较好的说明： 如何理解摩尔投票算法？ - 喝七喜的回答 - 知乎 代码 1234567891011121314151617181920212223242526272829303132333435363738394041#include &lt;cstdio&gt;inline char get_char()&#123; static const int SIZE = 2 &lt;&lt; 16; static char buffer[SIZE], *S, *T; if (S == T) &#123; T = (S = buffer) + fread(buffer, 1, SIZE, stdin); if (S == T) return EOF; &#125; return *S++;&#125;#define getchar get_charinline int get_int()&#123; char c; int ret = 0; for (c = getchar(); c &lt; '0' || c &gt; '9'; c = getchar()) ; for (; c &gt;= '0' &amp;&amp; c &lt;= '9'; c = getchar()) ret = (ret &lt;&lt; 1) + (ret &lt;&lt; 3) + (c - '0'); return ret;&#125;int main()&#123; freopen("excellent.in", "r", stdin); freopen("excellent.out", "w", stdout); int n = get_int(), a = 0, k = 0; for (int i = 0; i &lt; n; ++i) &#123; int tmp = get_int(); a = tmp == k ? a + 1 : a - 1; if (a &lt; 0) k = tmp, a = 1; &#125; printf("%d", k); return 0;&#125;]]></content>
@@ -32,9 +40,9 @@
       </categories>
       <tags>
         <tag>模拟赛</tag>
-        <tag>Codeforces</tag>
         <tag>模拟</tag>
         <tag>贪心</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -46,10 +54,10 @@
       </categories>
       <tags>
         <tag>模拟赛</tag>
+        <tag>Codeforces</tag>
         <tag>环</tag>
         <tag>DFS</tag>
         <tag>BFS</tag>
-        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -117,8 +125,8 @@
       </categories>
       <tags>
         <tag>DFS</tag>
-        <tag>判断质数</tag>
         <tag>Luogu</tag>
+        <tag>判断质数</tag>
       </tags>
   </entry>
   <entry>
@@ -129,9 +137,9 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Luogu</tag>
         <tag>二分查找</tag>
         <tag>枚举答案</tag>
+        <tag>Luogu</tag>
       </tags>
   </entry>
   <entry>
