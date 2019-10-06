@@ -1,10 +1,13 @@
-<h1 id="next-util"><a class="markdownIt-Anchor" href="#next-util"></a> NexT Util</h1>
-<p><a href="https://theme-next.org"><img src="https://img.shields.io/badge/NexT-v7.3.0+-blue.svg" alt="Theme" /></a><br />
-<img src="https://img.shields.io/github/release/theme-next/next-util.svg" alt="GitHub release" /></p>
-<p>Utilities for NexT.</p>
+<h1 id="hexo-auto-excerpt"><a class="markdownIt-Anchor" href="#hexo-auto-excerpt"></a> Hexo Auto Excerpt</h1>
+<p><img src="https://img.shields.io/github/package-json/v/theme-next/hexo-auto-excerpt?style=flat-square" alt="Package Version" /></p>
+<p>Auto excerpt for Hexo.</p>
 <h2 id="install"><a class="markdownIt-Anchor" href="#install"></a> Install</h2>
-<pre class="highlight"><code class="bash">npm install --save theme-next/next-util<span class="comment">#last-release</span>
+<pre class="highlight"><code class="bash">npm install --save theme-next/hexo-auto-excerpt<span class="comment">#last-release</span>
 </code></pre>
 <h2 id="usage"><a class="markdownIt-Anchor" href="#usage"></a> Usage</h2>
-<pre class="highlight"><code class="js"><span class="keyword">var</span> util = <span class="built_in">require</span>(<span class="string">'next-util'</span>);
+<pre class="highlight"><code class="yml"><span class="comment"># Automatically excerpt (Not recommend).</span>
+<span class="comment"># Use &lt;!-- more --&gt; in the post to control excerpt accurately.</span>
+<span class="attr">auto_excerpt:</span>
+<span class="attr">  enable:</span> <span class="literal">false</span>
+<span class="attr">  length:</span> <span class="number">150</span>
 </code></pre>
