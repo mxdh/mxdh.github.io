@@ -32,7 +32,7 @@
 <blockquote>
 <p>摩尔投票算法是基于这个事实：每次从序列里选择两个不相同的数字删除掉（或称为“抵消”），最后剩下一个数字或几个相同的数字，就是出现次数大于总数一半的那个。
 个人觉得比较好的说明：
-<a href="https://www.zhihu.com/question/49973163/answer/235921864" target="_blank" rel="noopener">如何理解摩尔投票算法？ - 喝七喜的回答 - 知乎</a></p>
+<a href="https://www.zhihu.com/question/49973163/answer/235921864">如何理解摩尔投票算法？ - 喝七喜的回答 - 知乎</a></p>
 </blockquote>
 <h2 id="代码"><a class="header-anchor" href="#代码">¶</a>代码</h2>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">char</span> <span class="title">get_char</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> SIZE = <span class="number">2</span> &lt;&lt; <span class="number">16</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">char</span> buffer[SIZE], *S, *T;</span><br><span class="line">	<span class="keyword">if</span> (S == T)</span><br><span class="line">	&#123;</span><br><span class="line">		T = (S = buffer) + fread(buffer, <span class="number">1</span>, SIZE, <span class="built_in">stdin</span>);</span><br><span class="line">		<span class="keyword">if</span> (S == T) <span class="keyword">return</span> EOF;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> *S++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> getchar get_char</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">get_int</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> c;</span><br><span class="line">	<span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (c = getchar(); c &lt; <span class="string">'0'</span> || c &gt; <span class="string">'9'</span>; c = getchar())</span><br><span class="line">		;</span><br><span class="line">	<span class="keyword">for</span> (; c &gt;= <span class="string">'0'</span> &amp;&amp; c &lt;= <span class="string">'9'</span>; c = getchar())</span><br><span class="line">		ret = (ret &lt;&lt; <span class="number">1</span>) + (ret &lt;&lt; <span class="number">3</span>) + (c - <span class="string">'0'</span>);</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	freopen(<span class="string">"excellent.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"excellent.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">	<span class="keyword">int</span> n = get_int(), a = <span class="number">0</span>, k = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> tmp = get_int();</span><br><span class="line">		a = tmp == k ? a + <span class="number">1</span> : a - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> (a &lt; <span class="number">0</span>) k = tmp, a = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>, k);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
@@ -46,7 +46,7 @@
   <entry>
     <title>19-3-27模拟赛T3 队列 queue</title>
     <url>/2019/03/27/19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT3-%E9%98%9F%E5%88%97-queue/</url>
-    <content><![CDATA[<h2 id="原题-CF118D"><a class="header-anchor" href="#原题-CF118D">¶</a>原题:<a href="http://codeforces.com/problemset/problem/118/D" target="_blank" rel="noopener">CF118D</a></h2>
+    <content><![CDATA[<h2 id="原题-CF118D"><a class="header-anchor" href="#原题-CF118D">¶</a>原题:<a href="http://codeforces.com/problemset/problem/118/D">CF118D</a></h2>
 <h2 id="题目描述"><a class="header-anchor" href="#题目描述">¶</a>题目描述</h2>
 <h3 id="队列-queue-pas-cpp-c"><a class="header-anchor" href="#队列-queue-pas-cpp-c">¶</a>队列(queue.pas/cpp/c)</h3>
 <h4 id="题目描述-v2"><a class="header-anchor" href="#题目描述-v2">¶</a>题目描述</h4>
@@ -89,7 +89,7 @@ f[i][j][1]=f[i][j][1]+f[i-k][j][0];</p>
   <entry>
     <title>19-3-27模拟赛T2 幸运数 lucky</title>
     <url>/2019/03/27/19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT2-%E5%B9%B8%E8%BF%90%E6%95%B0-lucky/</url>
-    <content><![CDATA[<h2 id="原题-CF118C"><a class="header-anchor" href="#原题-CF118C">¶</a>原题:<a href="http://codeforces.com/problemset/problem/118/C" target="_blank" rel="noopener">CF118C</a></h2>
+    <content><![CDATA[<h2 id="原题-CF118C"><a class="header-anchor" href="#原题-CF118C">¶</a>原题:<a href="http://codeforces.com/problemset/problem/118/C">CF118C</a></h2>
 <h2 id="题目描述"><a class="header-anchor" href="#题目描述">¶</a>题目描述</h2>
 <h3 id="幸运数-lucky-pas-cpp-c"><a class="header-anchor" href="#幸运数-lucky-pas-cpp-c">¶</a>幸运数(lucky.pas/cpp/c)</h3>
 <h4 id="题目描述-v2"><a class="header-anchor" href="#题目描述-v2">¶</a>题目描述</h4>
@@ -124,15 +124,15 @@ S可能含前导0。</li>
       </categories>
       <tags>
         <tag>模拟赛</tag>
+        <tag>Codeforces</tag>
         <tag>模拟</tag>
         <tag>贪心</tag>
-        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
     <title>19-3-27模拟赛T1 单圈 cycle</title>
     <url>/2019/03/27/19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT1-%E5%8D%95%E5%9C%88-cycle/</url>
-    <content><![CDATA[<h2 id="原题-CF117C"><a class="header-anchor" href="#原题-CF117C">¶</a>原题:<a href="http://codeforces.com/problemset/problem/117/C" target="_blank" rel="noopener">CF117C</a></h2>
+    <content><![CDATA[<h2 id="原题-CF117C"><a class="header-anchor" href="#原题-CF117C">¶</a>原题:<a href="http://codeforces.com/problemset/problem/117/C">CF117C</a></h2>
 <h2 id="题目描述"><a class="header-anchor" href="#题目描述">¶</a>题目描述</h2>
 <h3 id="单圈-cycle-pas-cpp-c"><a class="header-anchor" href="#单圈-cycle-pas-cpp-c">¶</a>单圈(cycle.pas/cpp/c)</h3>
 <h4 id="题目描述-v2"><a class="header-anchor" href="#题目描述-v2">¶</a>题目描述</h4>
@@ -164,10 +164,10 @@ DFS:</p>
       </categories>
       <tags>
         <tag>模拟赛</tag>
-        <tag>Codeforces</tag>
         <tag>环</tag>
         <tag>DFS</tag>
         <tag>BFS</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -191,7 +191,7 @@ DFS:</p>
 <li>更准确的计时</li>
 </ul>
 <p>项目地址：https://github.com/sxyz2019/OIer-Auxiliary</p>
-<p><a href="https://github.com/sxyz2019/OIer-Auxiliary/releases/latest" target="_blank" rel="noopener">下载</a>(注：可能会落后代码几个版本，毕竟要测试)</p>
+<p><a href="https://github.com/sxyz2019/OIer-Auxiliary/releases/latest">下载</a>(注：可能会落后代码几个版本，毕竟要测试)</p>
 <p>欢迎提出BUG以及新功能的想法</p>
 ]]></content>
       <categories>
@@ -327,9 +327,9 @@ max(总和-最小连续子段和,最大连续子段和)即为答案
         <category>题解</category>
       </categories>
       <tags>
-        <tag>Luogu</tag>
         <tag>二分查找</tag>
         <tag>枚举答案</tag>
+        <tag>Luogu</tag>
       </tags>
   </entry>
   <entry>
@@ -352,20 +352,20 @@ max(总和-最小连续子段和,最大连续子段和)即为答案
   <entry>
     <title>Hello World</title>
     <url>/2019/03/11/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a class="header-anchor" href="#Quick-Start">¶</a>Quick Start</h2>
 <h3 id="Create-a-new-post"><a class="header-anchor" href="#Create-a-new-post">¶</a>Create a new post</h3>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
 <h3 id="Run-server"><a class="header-anchor" href="#Run-server">¶</a>Run server</h3>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
 <h3 id="Generate-static-files"><a class="header-anchor" href="#Generate-static-files">¶</a>Generate static files</h3>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
 <h3 id="Deploy-to-remote-sites"><a class="header-anchor" href="#Deploy-to-remote-sites">¶</a>Deploy to remote sites</h3>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
 ]]></content>
   </entry>
 </search>
