@@ -85,6 +85,37 @@ S可能含前导0。</li>
       </tags>
   </entry>
   <entry>
+    <title>OI实用工具 持续更新ing</title>
+    <url>/2019/03/21/OI%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0ing/</url>
+    <content><![CDATA[<p>专为各种模拟赛设计的实用工具，还在持续更新中，隔段时间来看看会有惊喜</p>
+<p>目前已经实现：</p>
+<ul>
+<li>快速自动建立所有需要的文件夹和文件</li>
+<li>自动导入模板</li>
+<li>自定义缺省源</li>
+<li>带计时的自动对拍</li>
+</ul>
+<p>正在实现：</p>
+<ul>
+<li>简单的配置文件</li>
+<li>图形界面</li>
+<li>自动编译</li>
+<li>常见数据生成器</li>
+<li>更友好的报错</li>
+<li>更准确的计时</li>
+</ul>
+<p>项目地址：https://github.com/sxyz2019/OIer-Auxiliary</p>
+<p><a href="https://github.com/sxyz2019/OIer-Auxiliary/releases/latest">下载</a>(注：可能会落后代码几个版本，毕竟要测试)</p>
+<p>欢迎提出BUG以及新功能的想法</p>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具相关</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>19-3-27模拟赛T3 队列 queue</title>
     <url>/2019/03/27/19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT3-%E9%98%9F%E5%88%97-queue/</url>
     <content><![CDATA[<h2 id="原题-CF118D"><a class="header-anchor" href="#原题-CF118D">¶</a>原题:<a href="http://codeforces.com/problemset/problem/118/D">CF118D</a></h2>
@@ -128,34 +159,22 @@ f[i][j][1]=f[i][j][1]+f[i-k][j][0];</p>
       </tags>
   </entry>
   <entry>
-    <title>OI实用工具 持续更新ing</title>
-    <url>/2019/03/21/OI%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0ing/</url>
-    <content><![CDATA[<p>专为各种模拟赛设计的实用工具，还在持续更新中，隔段时间来看看会有惊喜</p>
-<p>目前已经实现：</p>
+    <title>题解 CF353A 【Domino】</title>
+    <url>/2019/03/21/%E9%A2%98%E8%A7%A3-CF353A-%E3%80%90Domino%E3%80%91/</url>
+    <content><![CDATA[<p>判断上下奇偶性并判断有没有上下奇偶性不一致的牌即可
+分4种情况讨论</p>
 <ul>
-<li>快速自动建立所有需要的文件夹和文件</li>
-<li>自动导入模板</li>
-<li>自定义缺省源</li>
-<li>带计时的自动对拍</li>
+<li>奇偶性不同怎么变都不行，输出-1</li>
+<li>都是偶数直接输出0</li>
+<li>都是奇数需要找到上下奇偶性不同的牌，输出1，否则不可能，输出-1</li>
 </ul>
-<p>正在实现：</p>
-<ul>
-<li>简单的配置文件</li>
-<li>图形界面</li>
-<li>自动编译</li>
-<li>常见数据生成器</li>
-<li>更友好的报错</li>
-<li>更准确的计时</li>
-</ul>
-<p>项目地址：https://github.com/sxyz2019/OIer-Auxiliary</p>
-<p><a href="https://github.com/sxyz2019/OIer-Auxiliary/releases/latest">下载</a>(注：可能会落后代码几个版本，毕竟要测试)</p>
-<p>欢迎提出BUG以及新功能的想法</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, c = <span class="number">0</span>, d = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> a, b;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">		<span class="keyword">if</span> ((a &amp; <span class="number">1</span>) ^ (b &amp; <span class="number">1</span>)) flag = <span class="literal">true</span>;</span><br><span class="line">		c ^= a &amp; <span class="number">1</span>;</span><br><span class="line">		d ^= b &amp; <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (c ^ d)</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (c)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (flag)</span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">"1"</span>);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"0"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>工具</category>
+        <category>题解</category>
       </categories>
       <tags>
-        <tag>工具相关</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
@@ -221,62 +240,6 @@ f[i][j][1]=f[i][j][1]+f[i-k][j][0];</p>
 ]]></content>
   </entry>
   <entry>
-    <title>题解 CF353A 【Domino】</title>
-    <url>/2019/03/21/%E9%A2%98%E8%A7%A3-CF353A-%E3%80%90Domino%E3%80%91/</url>
-    <content><![CDATA[<p>判断上下奇偶性并判断有没有上下奇偶性不一致的牌即可
-分4种情况讨论</p>
-<ul>
-<li>奇偶性不同怎么变都不行，输出-1</li>
-<li>都是偶数直接输出0</li>
-<li>都是奇数需要找到上下奇偶性不同的牌，输出1，否则不可能，输出-1</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, c = <span class="number">0</span>, d = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> a, b;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">		<span class="keyword">if</span> ((a &amp; <span class="number">1</span>) ^ (b &amp; <span class="number">1</span>)) flag = <span class="literal">true</span>;</span><br><span class="line">		c ^= a &amp; <span class="number">1</span>;</span><br><span class="line">		d ^= b &amp; <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (c ^ d)</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (c)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (flag)</span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">"1"</span>);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"0"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>Codeforces</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于最大连续子段和</title>
-    <url>/2019/03/21/%E5%85%B3%E4%BA%8E%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%AE%B5%E5%92%8C/</url>
-    <content><![CDATA[<p>如果一定要取一个数，把还原为0写在记录最小值后面</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">sum+=a[i];</span><br><span class="line">ans=max(ans,sum);</span><br><span class="line">sum=sum&lt;<span class="number">0</span>?<span class="number">0</span>:sum;</span><br></pre></td></tr></table></figure>
-<p>否则写在前面</p>
-<p>环上求最大连续子段和：
-先做一遍最大连续子段和
-再做一遍最小连续子段和
-max(总和-最小连续子段和,最大连续子段和)即为答案
-注：一定要取一个时要特判</p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>最大连续子段和</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>题解Luogu P1217 【[USACO1.5]回文质数 Prime Palindromes】</title>
-    <url>/2019/03/21/%E9%A2%98%E8%A7%A3Luogu-P1217-%E3%80%90-USACO1-5-%E5%9B%9E%E6%96%87%E8%B4%A8%E6%95%B0-Prime-Palindromes%E3%80%91/</url>
-    <content><![CDATA[<p>没有SPJ差评</p>
-<p>有大佬说没有偶数位的答案，然而我并不会证明，而且有11这个特例</p>
-<p>所以还是老老实实爆搜吧</p>
-<p>生成回文数并判断质数</p>
-<p>注意一定要排序。。。被坑了</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> LEN = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> s[LEN], l, r, ans[<span class="number">30000</span>], cnt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">2</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">int</span> m = <span class="built_in">sqrt</span>(n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= m; ++i)</span><br><span class="line">		<span class="keyword">if</span> (!(n % i)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">0</span>, b;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; ++i) a = a * <span class="number">10</span> + s[i];</span><br><span class="line">	b = a;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = k - <span class="number">1</span>; ~i; --i) a = a * <span class="number">10</span> + s[i];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = k - <span class="number">2</span>; ~i; --i) b = b * <span class="number">10</span> + s[i];</span><br><span class="line">	<span class="keyword">if</span> (b &gt; r) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (b &gt;= l &amp;&amp; check(b)) ans[cnt++] = b;</span><br><span class="line">	<span class="keyword">if</span> (a &gt;= l &amp;&amp; a &lt;= r &amp;&amp; check(a)) ans[cnt++] = a;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		s[k] = i;</span><br><span class="line">		dfs(k + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;l, &amp;r);</span><br><span class="line">	<span class="keyword">for</span> (s[<span class="number">0</span>] = <span class="number">1</span>; s[<span class="number">0</span>] &lt;= <span class="number">9</span>; s[<span class="number">0</span>] += <span class="number">2</span>) dfs(<span class="number">1</span>);</span><br><span class="line">	sort(ans, ans + cnt);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; ++i) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>DFS</tag>
-        <tag>判断质数</tag>
-        <tag>Luogu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>题解 滑稽树前做游戏，滑稽树后做交易 trade</title>
     <url>/2019/03/21/%E9%A2%98%E8%A7%A3-%E6%BB%91%E7%A8%BD%E6%A0%91%E5%89%8D%E5%81%9A%E6%B8%B8%E6%88%8F%EF%BC%8C%E6%BB%91%E7%A8%BD%E6%A0%91%E5%90%8E%E5%81%9A%E4%BA%A4%E6%98%93-trade/</url>
     <content><![CDATA[<p>题目名称我就不吐槽了。。。</p>
@@ -319,6 +282,60 @@ max(总和-最小连续子段和,最大连续子段和)即为答案
       </tags>
   </entry>
   <entry>
+    <title>关于最大连续子段和</title>
+    <url>/2019/03/21/%E5%85%B3%E4%BA%8E%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%AE%B5%E5%92%8C/</url>
+    <content><![CDATA[<p>如果一定要取一个数，把还原为0写在记录最小值后面</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">sum+=a[i];</span><br><span class="line">ans=max(ans,sum);</span><br><span class="line">sum=sum&lt;<span class="number">0</span>?<span class="number">0</span>:sum;</span><br></pre></td></tr></table></figure>
+<p>否则写在前面</p>
+<p>环上求最大连续子段和：
+先做一遍最大连续子段和
+再做一遍最小连续子段和
+max(总和-最小连续子段和,最大连续子段和)即为答案
+注：一定要取一个时要特判</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>最大连续子段和</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>题解Luogu P1217 【[USACO1.5]回文质数 Prime Palindromes】</title>
+    <url>/2019/03/21/%E9%A2%98%E8%A7%A3Luogu-P1217-%E3%80%90-USACO1-5-%E5%9B%9E%E6%96%87%E8%B4%A8%E6%95%B0-Prime-Palindromes%E3%80%91/</url>
+    <content><![CDATA[<p>没有SPJ差评</p>
+<p>有大佬说没有偶数位的答案，然而我并不会证明，而且有11这个特例</p>
+<p>所以还是老老实实爆搜吧</p>
+<p>生成回文数并判断质数</p>
+<p>注意一定要排序。。。被坑了</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> LEN = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> s[LEN], l, r, ans[<span class="number">30000</span>], cnt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">2</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">int</span> m = <span class="built_in">sqrt</span>(n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= m; ++i)</span><br><span class="line">		<span class="keyword">if</span> (!(n % i)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">0</span>, b;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; ++i) a = a * <span class="number">10</span> + s[i];</span><br><span class="line">	b = a;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = k - <span class="number">1</span>; ~i; --i) a = a * <span class="number">10</span> + s[i];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = k - <span class="number">2</span>; ~i; --i) b = b * <span class="number">10</span> + s[i];</span><br><span class="line">	<span class="keyword">if</span> (b &gt; r) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (b &gt;= l &amp;&amp; check(b)) ans[cnt++] = b;</span><br><span class="line">	<span class="keyword">if</span> (a &gt;= l &amp;&amp; a &lt;= r &amp;&amp; check(a)) ans[cnt++] = a;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		s[k] = i;</span><br><span class="line">		dfs(k + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;l, &amp;r);</span><br><span class="line">	<span class="keyword">for</span> (s[<span class="number">0</span>] = <span class="number">1</span>; s[<span class="number">0</span>] &lt;= <span class="number">9</span>; s[<span class="number">0</span>] += <span class="number">2</span>) dfs(<span class="number">1</span>);</span><br><span class="line">	sort(ans, ans + cnt);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; ++i) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+        <tag>判断质数</tag>
+        <tag>Luogu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>题解Lougu P1314 【聪明的质监员】</title>
+    <url>/2019/03/21/%E9%A2%98%E8%A7%A3Lougu-P1314-%E3%80%90%E8%81%AA%E6%98%8E%E7%9A%84%E8%B4%A8%E7%9B%91%E5%91%98%E3%80%91/</url>
+    <content><![CDATA[<p>pascal题解~</p>
+<p>二分枚举w,然后计算对应的y</p>
+<p>注意使用前缀和优化,可以让y的计算达到O(n+m)</p>
+<figure class="highlight pascal"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span></span><br><span class="line">  w,v,l,r,sum,t:<span class="keyword">array</span>[<span class="number">0</span>..<span class="number">200000</span>] <span class="keyword">of</span> longint;</span><br><span class="line">  n,m,i,left,right,mid:longint;</span><br><span class="line">  s,t1,t2:int64;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calc</span><span class="params">(k:longint)</span>:</span>int64;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> n <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    sum[i]:=sum[i-<span class="number">1</span>]; t[i]:=t[i-<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> w[i]&gt;=k <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">      inc(sum[i]); inc(t[i],v[i]);</span><br><span class="line">    <span class="keyword">end</span>;</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  calc:=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> m <span class="keyword">do</span> inc(calc,(sum[r[i]]-sum[l[i]-<span class="number">1</span>])*(t[r[i]]-t[l[i]-<span class="number">1</span>]));</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">read</span>(n,m,s);</span><br><span class="line">  left:=maxlongint;</span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> n <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">read</span>(w[i],v[i]);</span><br><span class="line">    <span class="keyword">if</span> v[i]&lt;left <span class="keyword">then</span> left:=v[i];</span><br><span class="line">    <span class="keyword">if</span> v[i]&gt;right <span class="keyword">then</span> right:=v[i];</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  inc(right);</span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> m <span class="keyword">do</span> <span class="keyword">read</span>(l[i],r[i]);</span><br><span class="line">  <span class="keyword">while</span> left&lt;=right <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    mid:=(left+right)<span class="keyword">div</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> calc(mid)&lt;s</span><br><span class="line">    <span class="keyword">then</span> right:=mid-<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span> left:=mid+<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  t1:=s-calc(left); t2:=calc(right)-s;</span><br><span class="line">  <span class="keyword">if</span> t1&lt;t2</span><br><span class="line">  <span class="keyword">then</span> <span class="keyword">write</span>(t1)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">write</span>(t2);</span><br><span class="line"><span class="keyword">end</span>.</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>Luogu</tag>
+        <tag>二分查找</tag>
+        <tag>枚举答案</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>题解Luogu P2749 【[USACO5.1]夜空繁星Starry Night】</title>
     <url>/2019/03/21/%E9%A2%98%E8%A7%A3Luogu-P2749-%E3%80%90-USACO5-1-%E5%A4%9C%E7%A9%BA%E7%B9%81%E6%98%9FStarry-Night%E3%80%91/</url>
     <content><![CDATA[<p>HASH判重</p>
@@ -349,23 +366,6 @@ max(总和-最小连续子段和,最大连续子段和)即为答案
         <tag>环</tag>
         <tag>最大连续子段和</tag>
         <tag>Luogu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>题解Lougu P1314 【聪明的质监员】</title>
-    <url>/2019/03/21/%E9%A2%98%E8%A7%A3Lougu-P1314-%E3%80%90%E8%81%AA%E6%98%8E%E7%9A%84%E8%B4%A8%E7%9B%91%E5%91%98%E3%80%91/</url>
-    <content><![CDATA[<p>pascal题解~</p>
-<p>二分枚举w,然后计算对应的y</p>
-<p>注意使用前缀和优化,可以让y的计算达到O(n+m)</p>
-<figure class="highlight pascal"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span></span><br><span class="line">  w,v,l,r,sum,t:<span class="keyword">array</span>[<span class="number">0</span>..<span class="number">200000</span>] <span class="keyword">of</span> longint;</span><br><span class="line">  n,m,i,left,right,mid:longint;</span><br><span class="line">  s,t1,t2:int64;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calc</span><span class="params">(k:longint)</span>:</span>int64;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> n <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    sum[i]:=sum[i-<span class="number">1</span>]; t[i]:=t[i-<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> w[i]&gt;=k <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">      inc(sum[i]); inc(t[i],v[i]);</span><br><span class="line">    <span class="keyword">end</span>;</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  calc:=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> m <span class="keyword">do</span> inc(calc,(sum[r[i]]-sum[l[i]-<span class="number">1</span>])*(t[r[i]]-t[l[i]-<span class="number">1</span>]));</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">read</span>(n,m,s);</span><br><span class="line">  left:=maxlongint;</span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> n <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">read</span>(w[i],v[i]);</span><br><span class="line">    <span class="keyword">if</span> v[i]&lt;left <span class="keyword">then</span> left:=v[i];</span><br><span class="line">    <span class="keyword">if</span> v[i]&gt;right <span class="keyword">then</span> right:=v[i];</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  inc(right);</span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> m <span class="keyword">do</span> <span class="keyword">read</span>(l[i],r[i]);</span><br><span class="line">  <span class="keyword">while</span> left&lt;=right <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    mid:=(left+right)<span class="keyword">div</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> calc(mid)&lt;s</span><br><span class="line">    <span class="keyword">then</span> right:=mid-<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span> left:=mid+<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  t1:=s-calc(left); t2:=calc(right)-s;</span><br><span class="line">  <span class="keyword">if</span> t1&lt;t2</span><br><span class="line">  <span class="keyword">then</span> <span class="keyword">write</span>(t1)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">write</span>(t2);</span><br><span class="line"><span class="keyword">end</span>.</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>Luogu</tag>
-        <tag>二分查找</tag>
-        <tag>枚举答案</tag>
       </tags>
   </entry>
 </search>
