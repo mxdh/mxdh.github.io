@@ -14,12 +14,12 @@
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"mxdh.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"mxdh.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="专为各种模拟赛设计的实用工具，还在持续更新中，隔段时间来看看会有惊喜 目前已经实现：  快速自动建立所有需要的文件夹和文件 自动导入模板 自定义缺省源 带计时的自动对拍  正在实现：  简单的配置文件 图形界面 自动编译 常见数据生成器 更友好的报错 更准确的计时  项目地址：https:&#x2F;&#x2F;github.com&#x2F;sxyz2019&#x2F;OIer-Auxiliary 下载(注：可能会落后代码几个版本，毕">
@@ -188,6 +188,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -534,7 +535,11 @@
 
 <script src="/js/next-boot.js"></script>
 
+<script src="/js/bookmark.js"></script>
 
+
+  <script defer src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
+    <script defer src="https//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

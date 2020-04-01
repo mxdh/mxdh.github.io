@@ -14,12 +14,12 @@
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"mxdh.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"mxdh.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="¶原题:CF118D ¶题目描述 ¶队列(queue.pas&#x2F;cpp&#x2F;c) ¶题目描述 小f很喜欢动漫，其中她最喜欢看海绵宝宝，有一天她拥有了n1个黄色海绵宝宝玩偶和n2个“粉红大胖呆”派大星玩偶。她要给这n1+n2个玩偶排排队（为什么要排队呢？很无聊吧我们可以把小f看做一个很捏戳的人）。但是为了使排的队列比较美观，小f不允许有超过k1个海绵宝宝排在一起，也不允许有超过k2个派大星排在一起。 现在">
@@ -189,6 +189,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -548,7 +549,11 @@ f[i][j][1]=f[i][j][1]+f[i-k][j][0];</p>
 
 <script src="/js/next-boot.js"></script>
 
+<script src="/js/bookmark.js"></script>
 
+
+  <script defer src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
+    <script defer src="https//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

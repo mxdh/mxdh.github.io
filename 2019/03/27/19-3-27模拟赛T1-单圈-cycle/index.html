@@ -14,12 +14,12 @@
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-flash.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"mxdh.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"mxdh.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="¶原题:CF117C ¶题目描述 ¶单圈(cycle.pas&#x2F;cpp&#x2F;c) ¶题目描述 最近小f在研究图论的问题，小f对有向图的环特别感兴趣，但是小f希望找出图中所有的环，但是这个这个问题非常困难。 现在小f把这个问题化简，她只需要找到有向图中的一个单圈就可以了。 单圈的定义：单圈有三个点A，B，C组成，满足A--&gt;B（有向边），B--&gt;C，C--&gt;A（存在A到B，B到C，C到A">
@@ -33,10 +33,10 @@
 <meta property="article:modified_time" content="2019-04-03T11:50:23.950Z">
 <meta property="article:author" content="面向大海">
 <meta property="article:tag" content="模拟赛">
+<meta property="article:tag" content="Codeforces">
 <meta property="article:tag" content="环">
 <meta property="article:tag" content="DFS">
 <meta property="article:tag" content="BFS">
-<meta property="article:tag" content="Codeforces">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://mxdh.github.io/2019/03/27/19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT1-%E5%8D%95%E5%9C%88-cycle/">
@@ -192,6 +192,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -333,10 +334,10 @@ DFS:</p>
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E6%A8%A1%E6%8B%9F%E8%B5%9B/" rel="tag"># 模拟赛</a>
+              <a href="/tags/Codeforces/" rel="tag"># Codeforces</a>
               <a href="/tags/%E7%8E%AF/" rel="tag"># 环</a>
               <a href="/tags/DFS/" rel="tag"># DFS</a>
               <a href="/tags/BFS/" rel="tag"># BFS</a>
-              <a href="/tags/Codeforces/" rel="tag"># Codeforces</a>
           </div>
 
         
@@ -549,7 +550,11 @@ DFS:</p>
 
 <script src="/js/next-boot.js"></script>
 
+<script src="/js/bookmark.js"></script>
 
+
+  <script defer src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
+    <script defer src="https//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

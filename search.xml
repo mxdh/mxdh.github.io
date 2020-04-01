@@ -1,47 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>19-3-27模拟赛T1 单圈 cycle</title>
-    <url>/2019/03/27/19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT1-%E5%8D%95%E5%9C%88-cycle/</url>
-    <content><![CDATA[<h2 id="原题-CF117C"><a class="header-anchor" href="#原题-CF117C">¶</a>原题:<a href="http://codeforces.com/problemset/problem/117/C">CF117C</a></h2>
-<h2 id="题目描述"><a class="header-anchor" href="#题目描述">¶</a>题目描述</h2>
-<h3 id="单圈-cycle-pas-cpp-c"><a class="header-anchor" href="#单圈-cycle-pas-cpp-c">¶</a>单圈(cycle.pas/cpp/c)</h3>
-<h4 id="题目描述-v2"><a class="header-anchor" href="#题目描述-v2">¶</a>题目描述</h4>
-<p>最近小f在研究图论的问题，小f对有向图的环特别感兴趣，但是小f希望找出图中所有的环，但是这个这个问题非常困难。
-现在小f把这个问题化简，她只需要找到有向图中的一个单圈就可以了。
-单圈的定义：单圈有三个点A，B，C组成，满足A--&gt;B（有向边），B--&gt;C，C--&gt;A（存在A到B，B到C，C到A这三条有向边,且A，B，C为三个不同的点）
-因为图中可能有多个单圈你只要输出其中一个即可,若找不到一个单圈，则输出-1。</p>
-<h4 id="输入格式"><a class="header-anchor" href="#输入格式">¶</a>输入格式</h4>
-<p>第一行一个正整数N，即该有向图有N个点，接下来一个N*N的邻接矩阵map，若map[i][j]=1,则表示点i到点j有一条有向边。</p>
-<h4 id="输出格式"><a class="header-anchor" href="#输出格式">¶</a>输出格式</h4>
-<p>一行用空格隔开的三个正整数或者找不到输出-1。</p>
-<h4 id="样例"><a class="header-anchor" href="#样例">¶</a>样例</h4>
-<p>cycle.in</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">00100</span><br><span class="line">10000</span><br><span class="line">01001</span><br><span class="line">11101</span><br><span class="line">11000</span><br></pre></td></tr></table></figure>
-<p>cycle.out</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 3 2</span><br></pre></td></tr></table></figure>
-<h4 id="数据规模及约定"><a class="header-anchor" href="#数据规模及约定">¶</a>数据规模及约定</h4>
-<ul>
-<li>40%的数据 N&lt;=100</li>
-<li>100%的数据 N&lt;=5000</li>
-</ul>
-<p>直接DFS/BFS判环，记录父亲节点，如果访问到爷爷节点即为答案
-坑点：按A-&gt;B-&gt;C输出
-DFS:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">5000</span>;</span><br><span class="line"><span class="keyword">char</span> s[N + <span class="number">100</span>];</span><br><span class="line"><span class="keyword">bool</span> vis[N + <span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> g[N + <span class="number">1</span>][N], cnt[N + <span class="number">1</span>], fa[N + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vis[k] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt[k]; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> v = g[k][i];</span><br><span class="line">		<span class="keyword">if</span> (v == fa[fa[k]])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d %d %d"</span>, v, fa[k], k);</span><br><span class="line">			<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (!vis[v])</span><br><span class="line">		&#123;</span><br><span class="line">			fa[v] = k;</span><br><span class="line">			dfs(v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	freopen(<span class="string">"cycle.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"cycle.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d\n"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		gets(s);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">			<span class="keyword">if</span> (s[j] == <span class="string">'1'</span>)</span><br><span class="line">				g[i][cnt[i]++] = j + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">		<span class="keyword">if</span> (!vis[i])</span><br><span class="line">			dfs(i);</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>模拟赛</tag>
-        <tag>环</tag>
-        <tag>DFS</tag>
-        <tag>BFS</tag>
-        <tag>Codeforces</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>19-3-27模拟赛T2 幸运数 lucky</title>
     <url>/2019/03/27/19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT2-%E5%B9%B8%E8%BF%90%E6%95%B0-lucky/</url>
     <content><![CDATA[<h2 id="原题-CF118C"><a class="header-anchor" href="#原题-CF118C">¶</a>原题:<a href="http://codeforces.com/problemset/problem/118/C">CF118C</a></h2>
@@ -79,40 +38,50 @@ S可能含前导0。</li>
       </categories>
       <tags>
         <tag>模拟赛</tag>
-        <tag>Codeforces</tag>
         <tag>模拟</tag>
         <tag>贪心</tag>
+        <tag>Codeforces</tag>
       </tags>
   </entry>
   <entry>
-    <title>OI实用工具 持续更新ing</title>
-    <url>/2019/03/21/OI%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0ing/</url>
-    <content><![CDATA[<p>专为各种模拟赛设计的实用工具，还在持续更新中，隔段时间来看看会有惊喜</p>
-<p>目前已经实现：</p>
+    <title>19-3-27模拟赛T1 单圈 cycle</title>
+    <url>/2019/03/27/19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT1-%E5%8D%95%E5%9C%88-cycle/</url>
+    <content><![CDATA[<h2 id="原题-CF117C"><a class="header-anchor" href="#原题-CF117C">¶</a>原题:<a href="http://codeforces.com/problemset/problem/117/C">CF117C</a></h2>
+<h2 id="题目描述"><a class="header-anchor" href="#题目描述">¶</a>题目描述</h2>
+<h3 id="单圈-cycle-pas-cpp-c"><a class="header-anchor" href="#单圈-cycle-pas-cpp-c">¶</a>单圈(cycle.pas/cpp/c)</h3>
+<h4 id="题目描述-v2"><a class="header-anchor" href="#题目描述-v2">¶</a>题目描述</h4>
+<p>最近小f在研究图论的问题，小f对有向图的环特别感兴趣，但是小f希望找出图中所有的环，但是这个这个问题非常困难。
+现在小f把这个问题化简，她只需要找到有向图中的一个单圈就可以了。
+单圈的定义：单圈有三个点A，B，C组成，满足A--&gt;B（有向边），B--&gt;C，C--&gt;A（存在A到B，B到C，C到A这三条有向边,且A，B，C为三个不同的点）
+因为图中可能有多个单圈你只要输出其中一个即可,若找不到一个单圈，则输出-1。</p>
+<h4 id="输入格式"><a class="header-anchor" href="#输入格式">¶</a>输入格式</h4>
+<p>第一行一个正整数N，即该有向图有N个点，接下来一个N*N的邻接矩阵map，若map[i][j]=1,则表示点i到点j有一条有向边。</p>
+<h4 id="输出格式"><a class="header-anchor" href="#输出格式">¶</a>输出格式</h4>
+<p>一行用空格隔开的三个正整数或者找不到输出-1。</p>
+<h4 id="样例"><a class="header-anchor" href="#样例">¶</a>样例</h4>
+<p>cycle.in</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">00100</span><br><span class="line">10000</span><br><span class="line">01001</span><br><span class="line">11101</span><br><span class="line">11000</span><br></pre></td></tr></table></figure>
+<p>cycle.out</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 3 2</span><br></pre></td></tr></table></figure>
+<h4 id="数据规模及约定"><a class="header-anchor" href="#数据规模及约定">¶</a>数据规模及约定</h4>
 <ul>
-<li>快速自动建立所有需要的文件夹和文件</li>
-<li>自动导入模板</li>
-<li>自定义缺省源</li>
-<li>带计时的自动对拍</li>
+<li>40%的数据 N&lt;=100</li>
+<li>100%的数据 N&lt;=5000</li>
 </ul>
-<p>正在实现：</p>
-<ul>
-<li>简单的配置文件</li>
-<li>图形界面</li>
-<li>自动编译</li>
-<li>常见数据生成器</li>
-<li>更友好的报错</li>
-<li>更准确的计时</li>
-</ul>
-<p>项目地址：https://github.com/sxyz2019/OIer-Auxiliary</p>
-<p><a href="https://github.com/sxyz2019/OIer-Auxiliary/releases/latest">下载</a>(注：可能会落后代码几个版本，毕竟要测试)</p>
-<p>欢迎提出BUG以及新功能的想法</p>
+<p>直接DFS/BFS判环，记录父亲节点，如果访问到爷爷节点即为答案
+坑点：按A-&gt;B-&gt;C输出
+DFS:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">5000</span>;</span><br><span class="line"><span class="keyword">char</span> s[N + <span class="number">100</span>];</span><br><span class="line"><span class="keyword">bool</span> vis[N + <span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> g[N + <span class="number">1</span>][N], cnt[N + <span class="number">1</span>], fa[N + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vis[k] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt[k]; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> v = g[k][i];</span><br><span class="line">		<span class="keyword">if</span> (v == fa[fa[k]])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d %d %d"</span>, v, fa[k], k);</span><br><span class="line">			<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (!vis[v])</span><br><span class="line">		&#123;</span><br><span class="line">			fa[v] = k;</span><br><span class="line">			dfs(v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	freopen(<span class="string">"cycle.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"cycle.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d\n"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		gets(s);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">			<span class="keyword">if</span> (s[j] == <span class="string">'1'</span>)</span><br><span class="line">				g[i][cnt[i]++] = j + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">register</span> <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">		<span class="keyword">if</span> (!vis[i])</span><br><span class="line">			dfs(i);</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>工具</category>
+        <category>题解</category>
       </categories>
       <tags>
-        <tag>工具相关</tag>
+        <tag>模拟赛</tag>
+        <tag>Codeforces</tag>
+        <tag>环</tag>
+        <tag>DFS</tag>
+        <tag>BFS</tag>
       </tags>
   </entry>
   <entry>
@@ -159,22 +128,22 @@ f[i][j][1]=f[i][j][1]+f[i-k][j][0];</p>
       </tags>
   </entry>
   <entry>
-    <title>题解 CF353A 【Domino】</title>
-    <url>/2019/03/21/%E9%A2%98%E8%A7%A3-CF353A-%E3%80%90Domino%E3%80%91/</url>
-    <content><![CDATA[<p>判断上下奇偶性并判断有没有上下奇偶性不一致的牌即可
-分4种情况讨论</p>
-<ul>
-<li>奇偶性不同怎么变都不行，输出-1</li>
-<li>都是偶数直接输出0</li>
-<li>都是奇数需要找到上下奇偶性不同的牌，输出1，否则不可能，输出-1</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, c = <span class="number">0</span>, d = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> a, b;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">		<span class="keyword">if</span> ((a &amp; <span class="number">1</span>) ^ (b &amp; <span class="number">1</span>)) flag = <span class="literal">true</span>;</span><br><span class="line">		c ^= a &amp; <span class="number">1</span>;</span><br><span class="line">		d ^= b &amp; <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (c ^ d)</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (c)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (flag)</span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">"1"</span>);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"0"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>关于最大连续子段和</title>
+    <url>/2019/03/21/%E5%85%B3%E4%BA%8E%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%AE%B5%E5%92%8C/</url>
+    <content><![CDATA[<p>如果一定要取一个数，把还原为0写在记录最小值后面</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">sum+=a[i];</span><br><span class="line">ans=max(ans,sum);</span><br><span class="line">sum=sum&lt;<span class="number">0</span>?<span class="number">0</span>:sum;</span><br></pre></td></tr></table></figure>
+<p>否则写在前面</p>
+<p>环上求最大连续子段和：
+先做一遍最大连续子段和
+再做一遍最小连续子段和
+max(总和-最小连续子段和,最大连续子段和)即为答案
+注：一定要取一个时要特判</p>
 ]]></content>
       <categories>
-        <category>题解</category>
+        <category>算法</category>
       </categories>
       <tags>
-        <tag>Codeforces</tag>
+        <tag>最大连续子段和</tag>
       </tags>
   </entry>
   <entry>
@@ -221,23 +190,54 @@ f[i][j][1]=f[i][j][1]+f[i-k][j][0];</p>
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2019/03/11/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a class="header-anchor" href="#Quick-Start">¶</a>Quick Start</h2>
-<h3 id="Create-a-new-post"><a class="header-anchor" href="#Create-a-new-post">¶</a>Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a class="header-anchor" href="#Run-server">¶</a>Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a class="header-anchor" href="#Generate-static-files">¶</a>Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a class="header-anchor" href="#Deploy-to-remote-sites">¶</a>Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+    <title>题解 CF353A 【Domino】</title>
+    <url>/2019/03/21/%E9%A2%98%E8%A7%A3-CF353A-%E3%80%90Domino%E3%80%91/</url>
+    <content><![CDATA[<p>判断上下奇偶性并判断有没有上下奇偶性不一致的牌即可
+分4种情况讨论</p>
+<ul>
+<li>奇偶性不同怎么变都不行，输出-1</li>
+<li>都是偶数直接输出0</li>
+<li>都是奇数需要找到上下奇偶性不同的牌，输出1，否则不可能，输出-1</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, c = <span class="number">0</span>, d = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> a, b;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">		<span class="keyword">if</span> ((a &amp; <span class="number">1</span>) ^ (b &amp; <span class="number">1</span>)) flag = <span class="literal">true</span>;</span><br><span class="line">		c ^= a &amp; <span class="number">1</span>;</span><br><span class="line">		d ^= b &amp; <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (c ^ d)</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (c)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (flag)</span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">"1"</span>);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"0"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>Codeforces</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OI实用工具 持续更新ing</title>
+    <url>/2019/03/21/OI%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0ing/</url>
+    <content><![CDATA[<p>专为各种模拟赛设计的实用工具，还在持续更新中，隔段时间来看看会有惊喜</p>
+<p>目前已经实现：</p>
+<ul>
+<li>快速自动建立所有需要的文件夹和文件</li>
+<li>自动导入模板</li>
+<li>自定义缺省源</li>
+<li>带计时的自动对拍</li>
+</ul>
+<p>正在实现：</p>
+<ul>
+<li>简单的配置文件</li>
+<li>图形界面</li>
+<li>自动编译</li>
+<li>常见数据生成器</li>
+<li>更友好的报错</li>
+<li>更准确的计时</li>
+</ul>
+<p>项目地址：https://github.com/sxyz2019/OIer-Auxiliary</p>
+<p><a href="https://github.com/sxyz2019/OIer-Auxiliary/releases/latest">下载</a>(注：可能会落后代码几个版本，毕竟要测试)</p>
+<p>欢迎提出BUG以及新功能的想法</p>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具相关</tag>
+      </tags>
   </entry>
   <entry>
     <title>题解 滑稽树前做游戏，滑稽树后做交易 trade</title>
@@ -282,23 +282,23 @@ f[i][j][1]=f[i][j][1]+f[i-k][j][0];</p>
       </tags>
   </entry>
   <entry>
-    <title>关于最大连续子段和</title>
-    <url>/2019/03/21/%E5%85%B3%E4%BA%8E%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%AE%B5%E5%92%8C/</url>
-    <content><![CDATA[<p>如果一定要取一个数，把还原为0写在记录最小值后面</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">sum+=a[i];</span><br><span class="line">ans=max(ans,sum);</span><br><span class="line">sum=sum&lt;<span class="number">0</span>?<span class="number">0</span>:sum;</span><br></pre></td></tr></table></figure>
-<p>否则写在前面</p>
-<p>环上求最大连续子段和：
-先做一遍最大连续子段和
-再做一遍最小连续子段和
-max(总和-最小连续子段和,最大连续子段和)即为答案
-注：一定要取一个时要特判</p>
+    <title>Hello World</title>
+    <url>/2019/03/11/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a class="header-anchor" href="#Quick-Start">¶</a>Quick Start</h2>
+<h3 id="Create-a-new-post"><a class="header-anchor" href="#Create-a-new-post">¶</a>Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a class="header-anchor" href="#Run-server">¶</a>Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a class="header-anchor" href="#Generate-static-files">¶</a>Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a class="header-anchor" href="#Deploy-to-remote-sites">¶</a>Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
 ]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>最大连续子段和</tag>
-      </tags>
   </entry>
   <entry>
     <title>题解Luogu P1217 【[USACO1.5]回文质数 Prime Palindromes】</title>
@@ -315,6 +315,23 @@ max(总和-最小连续子段和,最大连续子段和)即为答案
       <tags>
         <tag>DFS</tag>
         <tag>判断质数</tag>
+        <tag>Luogu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>题解Luogu P2940 【[USACO09FEB]音乐妖精The Leprechaun】</title>
+    <url>/2019/03/21/%E9%A2%98%E8%A7%A3Luogu-P2940-%E3%80%90-USACO09FEB-%E9%9F%B3%E4%B9%90%E5%A6%96%E7%B2%BEThe-Leprechaun%E3%80%91/</url>
+    <content><![CDATA[<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>算法</p>
+<p>把矩阵分成好多个环，用O(n)时间求环上最大连续子段和(对最大连续子段和以及sum减去最小连续子段和取最大值)</p>
+<p>注意要特判全部是负数的情况(最大连续子段和可能会一个都不取)</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">200</span>;</span><br><span class="line"><span class="keyword">int</span> ma[N &lt;&lt; <span class="number">1</span>][N &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, ans = <span class="number">-1E9</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    m = n &lt;&lt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;ma[i][j]);</span><br><span class="line">            ans = max(ans, ma[i][j]);</span><br><span class="line">            ma[i + n][j] = ma[i][j + n] = ma[i + n][j + n] = ma[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">if</span> (ans &lt;= <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>, ans);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">0</span>, b = <span class="number">0</span>, c = <span class="number">0</span>, d = <span class="number">0</span>, e = <span class="number">0</span>, f = <span class="number">0</span>, g = <span class="number">0</span>, h = <span class="number">0</span>, tmp1 = <span class="number">0</span>,</span><br><span class="line">            tmp2 = <span class="number">0</span>, tmp3 = <span class="number">0</span>, tmp4 = <span class="number">0</span>, sum1 = <span class="number">0</span>, sum2 = <span class="number">0</span>, sum3 = <span class="number">0</span>,</span><br><span class="line">            sum4 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            sum1 += ma[i][j];</span><br><span class="line">            a += ma[i][j];</span><br><span class="line">            <span class="keyword">if</span> (a &lt; <span class="number">0</span>) a = <span class="number">0</span>;</span><br><span class="line">            sum2 += ma[j][i];</span><br><span class="line">            b += ma[j][i];</span><br><span class="line">            <span class="keyword">if</span> (b &lt; <span class="number">0</span>) b = <span class="number">0</span>;</span><br><span class="line">            c += ma[i][j];</span><br><span class="line">            <span class="keyword">if</span> (c &gt; <span class="number">0</span>) c = <span class="number">0</span>;</span><br><span class="line">            tmp1 = min(tmp1, c);</span><br><span class="line">            d += ma[j][i];</span><br><span class="line">            <span class="keyword">if</span> (d &gt; <span class="number">0</span>) d = <span class="number">0</span>;</span><br><span class="line">            tmp2 = min(tmp2, d);</span><br><span class="line">            sum3 += ma[i + j][j];</span><br><span class="line">            e += ma[i + j][j];</span><br><span class="line">            <span class="keyword">if</span> (e &lt; <span class="number">0</span>) e = <span class="number">0</span>;</span><br><span class="line">            sum4 += ma[j][i + j];</span><br><span class="line">            f += ma[j][i + j];</span><br><span class="line">            <span class="keyword">if</span> (f &lt; <span class="number">0</span>) f = <span class="number">0</span>;</span><br><span class="line">            g += ma[i + j][j];</span><br><span class="line">            <span class="keyword">if</span> (g &gt; <span class="number">0</span>) g = <span class="number">0</span>;</span><br><span class="line">            tmp3 = min(tmp3, g);</span><br><span class="line">            h += ma[j][i + j];</span><br><span class="line">            <span class="keyword">if</span> (h &gt; <span class="number">0</span>) h = <span class="number">0</span>;</span><br><span class="line">            tmp4 = min(tmp4, h);</span><br><span class="line">            ans = max(ans, max(max(a, b), max(e, f)));</span><br><span class="line">        &#125;</span><br><span class="line">        ans = max(ans, max(max(sum1 - tmp1, sum2 - tmp2),</span><br><span class="line">                           max(sum3 - tmp3, sum4 - tmp4)));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &lt; m - <span class="number">1</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">0</span>, b = <span class="number">0</span>, tmp = <span class="number">0</span>, sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            sum += ma[i - j][j];</span><br><span class="line">            a += ma[i - j][j];</span><br><span class="line">            <span class="keyword">if</span> (a &lt; <span class="number">0</span>) a = <span class="number">0</span>;</span><br><span class="line">            b += ma[i - j][j];</span><br><span class="line">            <span class="keyword">if</span> (b &gt; <span class="number">0</span>) b = <span class="number">0</span>;</span><br><span class="line">            tmp = min(tmp, b);</span><br><span class="line">            ans = max(ans, a);</span><br><span class="line">        &#125;</span><br><span class="line">        ans = max(ans, sum - tmp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>环</tag>
+        <tag>最大连续子段和</tag>
         <tag>Luogu</tag>
       </tags>
   </entry>
@@ -349,23 +366,6 @@ max(总和-最小连续子段和,最大连续子段和)即为答案
       <tags>
         <tag>DFS</tag>
         <tag>hash</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>题解Luogu P2940 【[USACO09FEB]音乐妖精The Leprechaun】</title>
-    <url>/2019/03/21/%E9%A2%98%E8%A7%A3Luogu-P2940-%E3%80%90-USACO09FEB-%E9%9F%B3%E4%B9%90%E5%A6%96%E7%B2%BEThe-Leprechaun%E3%80%91/</url>
-    <content><![CDATA[<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>算法</p>
-<p>把矩阵分成好多个环，用O(n)时间求环上最大连续子段和(对最大连续子段和以及sum减去最小连续子段和取最大值)</p>
-<p>注意要特判全部是负数的情况(最大连续子段和可能会一个都不取)</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">200</span>;</span><br><span class="line"><span class="keyword">int</span> ma[N &lt;&lt; <span class="number">1</span>][N &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, ans = <span class="number">-1E9</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    m = n &lt;&lt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;ma[i][j]);</span><br><span class="line">            ans = max(ans, ma[i][j]);</span><br><span class="line">            ma[i + n][j] = ma[i][j + n] = ma[i + n][j + n] = ma[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">if</span> (ans &lt;= <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>, ans);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">0</span>, b = <span class="number">0</span>, c = <span class="number">0</span>, d = <span class="number">0</span>, e = <span class="number">0</span>, f = <span class="number">0</span>, g = <span class="number">0</span>, h = <span class="number">0</span>, tmp1 = <span class="number">0</span>,</span><br><span class="line">            tmp2 = <span class="number">0</span>, tmp3 = <span class="number">0</span>, tmp4 = <span class="number">0</span>, sum1 = <span class="number">0</span>, sum2 = <span class="number">0</span>, sum3 = <span class="number">0</span>,</span><br><span class="line">            sum4 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            sum1 += ma[i][j];</span><br><span class="line">            a += ma[i][j];</span><br><span class="line">            <span class="keyword">if</span> (a &lt; <span class="number">0</span>) a = <span class="number">0</span>;</span><br><span class="line">            sum2 += ma[j][i];</span><br><span class="line">            b += ma[j][i];</span><br><span class="line">            <span class="keyword">if</span> (b &lt; <span class="number">0</span>) b = <span class="number">0</span>;</span><br><span class="line">            c += ma[i][j];</span><br><span class="line">            <span class="keyword">if</span> (c &gt; <span class="number">0</span>) c = <span class="number">0</span>;</span><br><span class="line">            tmp1 = min(tmp1, c);</span><br><span class="line">            d += ma[j][i];</span><br><span class="line">            <span class="keyword">if</span> (d &gt; <span class="number">0</span>) d = <span class="number">0</span>;</span><br><span class="line">            tmp2 = min(tmp2, d);</span><br><span class="line">            sum3 += ma[i + j][j];</span><br><span class="line">            e += ma[i + j][j];</span><br><span class="line">            <span class="keyword">if</span> (e &lt; <span class="number">0</span>) e = <span class="number">0</span>;</span><br><span class="line">            sum4 += ma[j][i + j];</span><br><span class="line">            f += ma[j][i + j];</span><br><span class="line">            <span class="keyword">if</span> (f &lt; <span class="number">0</span>) f = <span class="number">0</span>;</span><br><span class="line">            g += ma[i + j][j];</span><br><span class="line">            <span class="keyword">if</span> (g &gt; <span class="number">0</span>) g = <span class="number">0</span>;</span><br><span class="line">            tmp3 = min(tmp3, g);</span><br><span class="line">            h += ma[j][i + j];</span><br><span class="line">            <span class="keyword">if</span> (h &gt; <span class="number">0</span>) h = <span class="number">0</span>;</span><br><span class="line">            tmp4 = min(tmp4, h);</span><br><span class="line">            ans = max(ans, max(max(a, b), max(e, f)));</span><br><span class="line">        &#125;</span><br><span class="line">        ans = max(ans, max(max(sum1 - tmp1, sum2 - tmp2),</span><br><span class="line">                           max(sum3 - tmp3, sum4 - tmp4)));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &lt; m - <span class="number">1</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">0</span>, b = <span class="number">0</span>, tmp = <span class="number">0</span>, sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            sum += ma[i - j][j];</span><br><span class="line">            a += ma[i - j][j];</span><br><span class="line">            <span class="keyword">if</span> (a &lt; <span class="number">0</span>) a = <span class="number">0</span>;</span><br><span class="line">            b += ma[i - j][j];</span><br><span class="line">            <span class="keyword">if</span> (b &gt; <span class="number">0</span>) b = <span class="number">0</span>;</span><br><span class="line">            tmp = min(tmp, b);</span><br><span class="line">            ans = max(ans, a);</span><br><span class="line">        &#125;</span><br><span class="line">        ans = max(ans, sum - tmp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>环</tag>
-        <tag>最大连续子段和</tag>
-        <tag>Luogu</tag>
       </tags>
   </entry>
 </search>
