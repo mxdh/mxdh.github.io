@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>19-3-27模拟赛T3 队列 queue</title>
+    <url>/2019/03/27/19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT3-%E9%98%9F%E5%88%97-queue/</url>
+    <content><![CDATA[<h2 id="原题-CF118D"><a class="header-anchor" href="#原题-CF118D">¶</a>原题:<a href="http://codeforces.com/problemset/problem/118/D">CF118D</a></h2>
+<h2 id="题目描述"><a class="header-anchor" href="#题目描述">¶</a>题目描述</h2>
+<h3 id="队列-queue-pas-cpp-c"><a class="header-anchor" href="#队列-queue-pas-cpp-c">¶</a>队列(queue.pas/cpp/c)</h3>
+<h4 id="题目描述-v2"><a class="header-anchor" href="#题目描述-v2">¶</a>题目描述</h4>
+<p>小f很喜欢动漫，其中她最喜欢看海绵宝宝，有一天她拥有了n1个黄色海绵宝宝玩偶和n2个“粉红大胖呆”派大星玩偶。她要给这n1+n2个玩偶排排队（为什么要排队呢？很无聊吧<s>我们可以把小f看做一个很捏戳的人</s>）。但是为了使排的队列比较美观，小f不允许有超过k1个海绵宝宝排在一起，也不允许有超过k2个派大星排在一起。
+现在告诉你n1，n2，k1，k2，问你一共有多少种可行的排列方式。</p>
+<p>由于结果可能很大，只需要把结果mod 100000000输出即可。</p>
+<h4 id="输入格式"><a class="header-anchor" href="#输入格式">¶</a>输入格式</h4>
+<p>第一行四个用空格隔开的非负整数n1,n2,k1,k2</p>
+<h4 id="输出格式"><a class="header-anchor" href="#输出格式">¶</a>输出格式</h4>
+<p>一行一个非负整数</p>
+<h4 id="样例"><a class="header-anchor" href="#样例">¶</a>样例</h4>
+<p>queue.in</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2 3 1 2</span><br><span class="line"></span><br><span class="line">2 4 1 1</span><br></pre></td></tr></table></figure>
+<p>queue.out</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line"></span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<p>第一组样例说明
+合法的序列有：12122, 12212, 21212, 21221, 22121
+1是海绵宝宝，2是派大星。
+数据规模及约定</p>
+<ul>
+<li>30%的数据 n1+n2&lt;=20</li>
+<li>100%的数据 n1,n2&lt;=100    k1,k2&lt;=10</li>
+</ul>
+<p>f[i][j][k]表示当前在做第i个，已经选了j个海绵宝宝，当前这一位是海绵宝宝还是派大星</p>
+<p>状态转移方程:
+f[i][j][0]=f[i][j][0]+f[i-k][j-k][1];
+f[i][j][1]=f[i][j][1]+f[i-k][j][0];</p>
+<p>最后输出f[n1+n2][n1][0]+f[n1+n2][n1][1]</p>
+<p>注意模P</p>
+<p>优美的循环:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::max;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">100</span>,P=<span class="number">100000000</span>;</span><br><span class="line"><span class="keyword">int</span> f[(N&lt;&lt;<span class="number">1</span>)|<span class="number">1</span>][N+<span class="number">1</span>][<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	freopen(<span class="string">"queue.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"queue.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="keyword">int</span> n1,n2,k1,k2;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>,&amp;n1,&amp;n2,&amp;k1,&amp;k2);</span><br><span class="line">	f[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>]=f[<span class="number">0</span>][<span class="number">0</span>][<span class="number">1</span>]=<span class="number">1</span>%P;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n1+n2;++i)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=max(<span class="number">0</span>,i-n2);j&lt;=n1&amp;&amp;j&lt;=i;++j)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=k1&amp;&amp;k&lt;=j;++k) f[i][j][<span class="number">0</span>]=(f[i][j][<span class="number">0</span>]+f[i-k][j-k][<span class="number">1</span>])%P;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=k2&amp;&amp;k&lt;=i-j;++k) f[i][j][<span class="number">1</span>]=(f[i][j][<span class="number">1</span>]+f[i-k][j][<span class="number">0</span>])%P;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>,(f[n1+n2][n1][<span class="number">0</span>]+f[n1+n2][n1][<span class="number">1</span>])%P);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>模拟赛</tag>
+        <tag>DP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>19-3-27模拟赛T2 幸运数 lucky</title>
     <url>/2019/03/27/19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT2-%E5%B9%B8%E8%BF%90%E6%95%B0-lucky/</url>
     <content><![CDATA[<h2 id="原题-CF118C"><a class="header-anchor" href="#原题-CF118C">¶</a>原题:<a href="http://codeforces.com/problemset/problem/118/C">CF118C</a></h2>
@@ -85,47 +128,54 @@ DFS:</p>
       </tags>
   </entry>
   <entry>
-    <title>19-3-27模拟赛T3 队列 queue</title>
-    <url>/2019/03/27/19-3-27%E6%A8%A1%E6%8B%9F%E8%B5%9BT3-%E9%98%9F%E5%88%97-queue/</url>
-    <content><![CDATA[<h2 id="原题-CF118D"><a class="header-anchor" href="#原题-CF118D">¶</a>原题:<a href="http://codeforces.com/problemset/problem/118/D">CF118D</a></h2>
-<h2 id="题目描述"><a class="header-anchor" href="#题目描述">¶</a>题目描述</h2>
-<h3 id="队列-queue-pas-cpp-c"><a class="header-anchor" href="#队列-queue-pas-cpp-c">¶</a>队列(queue.pas/cpp/c)</h3>
-<h4 id="题目描述-v2"><a class="header-anchor" href="#题目描述-v2">¶</a>题目描述</h4>
-<p>小f很喜欢动漫，其中她最喜欢看海绵宝宝，有一天她拥有了n1个黄色海绵宝宝玩偶和n2个“粉红大胖呆”派大星玩偶。她要给这n1+n2个玩偶排排队（为什么要排队呢？很无聊吧<s>我们可以把小f看做一个很捏戳的人</s>）。但是为了使排的队列比较美观，小f不允许有超过k1个海绵宝宝排在一起，也不允许有超过k2个派大星排在一起。
-现在告诉你n1，n2，k1，k2，问你一共有多少种可行的排列方式。</p>
-<p>由于结果可能很大，只需要把结果mod 100000000输出即可。</p>
-<h4 id="输入格式"><a class="header-anchor" href="#输入格式">¶</a>输入格式</h4>
-<p>第一行四个用空格隔开的非负整数n1,n2,k1,k2</p>
-<h4 id="输出格式"><a class="header-anchor" href="#输出格式">¶</a>输出格式</h4>
-<p>一行一个非负整数</p>
-<h4 id="样例"><a class="header-anchor" href="#样例">¶</a>样例</h4>
-<p>queue.in</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2 3 1 2</span><br><span class="line"></span><br><span class="line">2 4 1 1</span><br></pre></td></tr></table></figure>
-<p>queue.out</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line"></span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-<p>第一组样例说明
-合法的序列有：12122, 12212, 21212, 21221, 22121
-1是海绵宝宝，2是派大星。
-数据规模及约定</p>
+    <title>OI实用工具 持续更新ing</title>
+    <url>/2019/03/21/OI%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0ing/</url>
+    <content><![CDATA[<p>专为各种模拟赛设计的实用工具，还在持续更新中，隔段时间来看看会有惊喜</p>
+<p>目前已经实现：</p>
 <ul>
-<li>30%的数据 n1+n2&lt;=20</li>
-<li>100%的数据 n1,n2&lt;=100    k1,k2&lt;=10</li>
+<li>快速自动建立所有需要的文件夹和文件</li>
+<li>自动导入模板</li>
+<li>自定义缺省源</li>
+<li>带计时的自动对拍</li>
 </ul>
-<p>f[i][j][k]表示当前在做第i个，已经选了j个海绵宝宝，当前这一位是海绵宝宝还是派大星</p>
-<p>状态转移方程:
-f[i][j][0]=f[i][j][0]+f[i-k][j-k][1];
-f[i][j][1]=f[i][j][1]+f[i-k][j][0];</p>
-<p>最后输出f[n1+n2][n1][0]+f[n1+n2][n1][1]</p>
-<p>注意模P</p>
-<p>优美的循环:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::max;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">100</span>,P=<span class="number">100000000</span>;</span><br><span class="line"><span class="keyword">int</span> f[(N&lt;&lt;<span class="number">1</span>)|<span class="number">1</span>][N+<span class="number">1</span>][<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	freopen(<span class="string">"queue.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"queue.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="keyword">int</span> n1,n2,k1,k2;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>,&amp;n1,&amp;n2,&amp;k1,&amp;k2);</span><br><span class="line">	f[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>]=f[<span class="number">0</span>][<span class="number">0</span>][<span class="number">1</span>]=<span class="number">1</span>%P;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n1+n2;++i)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=max(<span class="number">0</span>,i-n2);j&lt;=n1&amp;&amp;j&lt;=i;++j)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=k1&amp;&amp;k&lt;=j;++k) f[i][j][<span class="number">0</span>]=(f[i][j][<span class="number">0</span>]+f[i-k][j-k][<span class="number">1</span>])%P;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=k2&amp;&amp;k&lt;=i-j;++k) f[i][j][<span class="number">1</span>]=(f[i][j][<span class="number">1</span>]+f[i-k][j][<span class="number">0</span>])%P;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>,(f[n1+n2][n1][<span class="number">0</span>]+f[n1+n2][n1][<span class="number">1</span>])%P);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<p>正在实现：</p>
+<ul>
+<li>简单的配置文件</li>
+<li>图形界面</li>
+<li>自动编译</li>
+<li>常见数据生成器</li>
+<li>更友好的报错</li>
+<li>更准确的计时</li>
+</ul>
+<p>项目地址：https://github.com/sxyz2019/OIer-Auxiliary</p>
+<p><a href="https://github.com/sxyz2019/OIer-Auxiliary/releases/latest">下载</a>(注：可能会落后代码几个版本，毕竟要测试)</p>
+<p>欢迎提出BUG以及新功能的想法</p>
+]]></content>
       <categories>
-        <category>题解</category>
+        <category>工具</category>
       </categories>
       <tags>
-        <tag>模拟赛</tag>
-        <tag>DP</tag>
+        <tag>工具相关</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2019/03/11/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a class="header-anchor" href="#Quick-Start">¶</a>Quick Start</h2>
+<h3 id="Create-a-new-post"><a class="header-anchor" href="#Create-a-new-post">¶</a>Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a class="header-anchor" href="#Run-server">¶</a>Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a class="header-anchor" href="#Generate-static-files">¶</a>Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a class="header-anchor" href="#Deploy-to-remote-sites">¶</a>Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>关于最大连续子段和</title>
@@ -209,37 +259,6 @@ max(总和-最小连续子段和,最大连续子段和)即为答案
       </tags>
   </entry>
   <entry>
-    <title>OI实用工具 持续更新ing</title>
-    <url>/2019/03/21/OI%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0ing/</url>
-    <content><![CDATA[<p>专为各种模拟赛设计的实用工具，还在持续更新中，隔段时间来看看会有惊喜</p>
-<p>目前已经实现：</p>
-<ul>
-<li>快速自动建立所有需要的文件夹和文件</li>
-<li>自动导入模板</li>
-<li>自定义缺省源</li>
-<li>带计时的自动对拍</li>
-</ul>
-<p>正在实现：</p>
-<ul>
-<li>简单的配置文件</li>
-<li>图形界面</li>
-<li>自动编译</li>
-<li>常见数据生成器</li>
-<li>更友好的报错</li>
-<li>更准确的计时</li>
-</ul>
-<p>项目地址：https://github.com/sxyz2019/OIer-Auxiliary</p>
-<p><a href="https://github.com/sxyz2019/OIer-Auxiliary/releases/latest">下载</a>(注：可能会落后代码几个版本，毕竟要测试)</p>
-<p>欢迎提出BUG以及新功能的想法</p>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>工具相关</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>题解 滑稽树前做游戏，滑稽树后做交易 trade</title>
     <url>/2019/03/21/%E9%A2%98%E8%A7%A3-%E6%BB%91%E7%A8%BD%E6%A0%91%E5%89%8D%E5%81%9A%E6%B8%B8%E6%88%8F%EF%BC%8C%E6%BB%91%E7%A8%BD%E6%A0%91%E5%90%8E%E5%81%9A%E4%BA%A4%E6%98%93-trade/</url>
     <content><![CDATA[<p>题目名称我就不吐槽了。。。</p>
@@ -282,39 +301,19 @@ max(总和-最小连续子段和,最大连续子段和)即为答案
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2019/03/11/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a class="header-anchor" href="#Quick-Start">¶</a>Quick Start</h2>
-<h3 id="Create-a-new-post"><a class="header-anchor" href="#Create-a-new-post">¶</a>Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a class="header-anchor" href="#Run-server">¶</a>Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a class="header-anchor" href="#Generate-static-files">¶</a>Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a class="header-anchor" href="#Deploy-to-remote-sites">¶</a>Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+    <title>题解Lougu P1314 【聪明的质监员】</title>
+    <url>/2019/03/21/%E9%A2%98%E8%A7%A3Lougu-P1314-%E3%80%90%E8%81%AA%E6%98%8E%E7%9A%84%E8%B4%A8%E7%9B%91%E5%91%98%E3%80%91/</url>
+    <content><![CDATA[<p>pascal题解~</p>
+<p>二分枚举w,然后计算对应的y</p>
+<p>注意使用前缀和优化,可以让y的计算达到O(n+m)</p>
+<figure class="highlight pascal"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span></span><br><span class="line">  w,v,l,r,sum,t:<span class="keyword">array</span>[<span class="number">0</span>..<span class="number">200000</span>] <span class="keyword">of</span> longint;</span><br><span class="line">  n,m,i,left,right,mid:longint;</span><br><span class="line">  s,t1,t2:int64;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calc</span><span class="params">(k:longint)</span>:</span>int64;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> n <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    sum[i]:=sum[i-<span class="number">1</span>]; t[i]:=t[i-<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> w[i]&gt;=k <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">      inc(sum[i]); inc(t[i],v[i]);</span><br><span class="line">    <span class="keyword">end</span>;</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  calc:=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> m <span class="keyword">do</span> inc(calc,(sum[r[i]]-sum[l[i]-<span class="number">1</span>])*(t[r[i]]-t[l[i]-<span class="number">1</span>]));</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">read</span>(n,m,s);</span><br><span class="line">  left:=maxlongint;</span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> n <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">read</span>(w[i],v[i]);</span><br><span class="line">    <span class="keyword">if</span> v[i]&lt;left <span class="keyword">then</span> left:=v[i];</span><br><span class="line">    <span class="keyword">if</span> v[i]&gt;right <span class="keyword">then</span> right:=v[i];</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  inc(right);</span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> m <span class="keyword">do</span> <span class="keyword">read</span>(l[i],r[i]);</span><br><span class="line">  <span class="keyword">while</span> left&lt;=right <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    mid:=(left+right)<span class="keyword">div</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> calc(mid)&lt;s</span><br><span class="line">    <span class="keyword">then</span> right:=mid-<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span> left:=mid+<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  t1:=s-calc(left); t2:=calc(right)-s;</span><br><span class="line">  <span class="keyword">if</span> t1&lt;t2</span><br><span class="line">  <span class="keyword">then</span> <span class="keyword">write</span>(t1)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">write</span>(t2);</span><br><span class="line"><span class="keyword">end</span>.</span><br></pre></td></tr></table></figure>
 ]]></content>
-  </entry>
-  <entry>
-    <title>题解Luogu P1217 【[USACO1.5]回文质数 Prime Palindromes】</title>
-    <url>/2019/03/21/%E9%A2%98%E8%A7%A3Luogu-P1217-%E3%80%90-USACO1-5-%E5%9B%9E%E6%96%87%E8%B4%A8%E6%95%B0-Prime-Palindromes%E3%80%91/</url>
-    <content><![CDATA[<p>没有SPJ差评</p>
-<p>有大佬说没有偶数位的答案，然而我并不会证明，而且有11这个特例</p>
-<p>所以还是老老实实爆搜吧</p>
-<p>生成回文数并判断质数</p>
-<p>注意一定要排序。。。被坑了</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> LEN = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> s[LEN], l, r, ans[<span class="number">30000</span>], cnt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">2</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">int</span> m = <span class="built_in">sqrt</span>(n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= m; ++i)</span><br><span class="line">		<span class="keyword">if</span> (!(n % i)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">0</span>, b;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; ++i) a = a * <span class="number">10</span> + s[i];</span><br><span class="line">	b = a;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = k - <span class="number">1</span>; ~i; --i) a = a * <span class="number">10</span> + s[i];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = k - <span class="number">2</span>; ~i; --i) b = b * <span class="number">10</span> + s[i];</span><br><span class="line">	<span class="keyword">if</span> (b &gt; r) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (b &gt;= l &amp;&amp; check(b)) ans[cnt++] = b;</span><br><span class="line">	<span class="keyword">if</span> (a &gt;= l &amp;&amp; a &lt;= r &amp;&amp; check(a)) ans[cnt++] = a;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		s[k] = i;</span><br><span class="line">		dfs(k + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;l, &amp;r);</span><br><span class="line">	<span class="keyword">for</span> (s[<span class="number">0</span>] = <span class="number">1</span>; s[<span class="number">0</span>] &lt;= <span class="number">9</span>; s[<span class="number">0</span>] += <span class="number">2</span>) dfs(<span class="number">1</span>);</span><br><span class="line">	sort(ans, ans + cnt);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; ++i) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>题解</category>
       </categories>
       <tags>
-        <tag>DFS</tag>
-        <tag>判断质数</tag>
+        <tag>二分查找</tag>
+        <tag>枚举答案</tag>
         <tag>Luogu</tag>
       </tags>
   </entry>
@@ -336,23 +335,6 @@ max(总和-最小连续子段和,最大连续子段和)即为答案
       </tags>
   </entry>
   <entry>
-    <title>题解Lougu P1314 【聪明的质监员】</title>
-    <url>/2019/03/21/%E9%A2%98%E8%A7%A3Lougu-P1314-%E3%80%90%E8%81%AA%E6%98%8E%E7%9A%84%E8%B4%A8%E7%9B%91%E5%91%98%E3%80%91/</url>
-    <content><![CDATA[<p>pascal题解~</p>
-<p>二分枚举w,然后计算对应的y</p>
-<p>注意使用前缀和优化,可以让y的计算达到O(n+m)</p>
-<figure class="highlight pascal"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span></span><br><span class="line">  w,v,l,r,sum,t:<span class="keyword">array</span>[<span class="number">0</span>..<span class="number">200000</span>] <span class="keyword">of</span> longint;</span><br><span class="line">  n,m,i,left,right,mid:longint;</span><br><span class="line">  s,t1,t2:int64;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">calc</span><span class="params">(k:longint)</span>:</span>int64;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> n <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    sum[i]:=sum[i-<span class="number">1</span>]; t[i]:=t[i-<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> w[i]&gt;=k <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">      inc(sum[i]); inc(t[i],v[i]);</span><br><span class="line">    <span class="keyword">end</span>;</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  calc:=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> m <span class="keyword">do</span> inc(calc,(sum[r[i]]-sum[l[i]-<span class="number">1</span>])*(t[r[i]]-t[l[i]-<span class="number">1</span>]));</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">read</span>(n,m,s);</span><br><span class="line">  left:=maxlongint;</span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> n <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">read</span>(w[i],v[i]);</span><br><span class="line">    <span class="keyword">if</span> v[i]&lt;left <span class="keyword">then</span> left:=v[i];</span><br><span class="line">    <span class="keyword">if</span> v[i]&gt;right <span class="keyword">then</span> right:=v[i];</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  inc(right);</span><br><span class="line">  <span class="keyword">for</span> i:=<span class="number">1</span> <span class="keyword">to</span> m <span class="keyword">do</span> <span class="keyword">read</span>(l[i],r[i]);</span><br><span class="line">  <span class="keyword">while</span> left&lt;=right <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    mid:=(left+right)<span class="keyword">div</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> calc(mid)&lt;s</span><br><span class="line">    <span class="keyword">then</span> right:=mid-<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span> left:=mid+<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  t1:=s-calc(left); t2:=calc(right)-s;</span><br><span class="line">  <span class="keyword">if</span> t1&lt;t2</span><br><span class="line">  <span class="keyword">then</span> <span class="keyword">write</span>(t1)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">write</span>(t2);</span><br><span class="line"><span class="keyword">end</span>.</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>Luogu</tag>
-        <tag>二分查找</tag>
-        <tag>枚举答案</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>题解Luogu P2749 【[USACO5.1]夜空繁星Starry Night】</title>
     <url>/2019/03/21/%E9%A2%98%E8%A7%A3Luogu-P2749-%E3%80%90-USACO5-1-%E5%A4%9C%E7%A9%BA%E7%B9%81%E6%98%9FStarry-Night%E3%80%91/</url>
     <content><![CDATA[<p>HASH判重</p>
@@ -366,6 +348,24 @@ max(总和-最小连续子段和,最大连续子段和)即为答案
       <tags>
         <tag>DFS</tag>
         <tag>hash</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>题解Luogu P1217 【[USACO1.5]回文质数 Prime Palindromes】</title>
+    <url>/2019/03/21/%E9%A2%98%E8%A7%A3Luogu-P1217-%E3%80%90-USACO1-5-%E5%9B%9E%E6%96%87%E8%B4%A8%E6%95%B0-Prime-Palindromes%E3%80%91/</url>
+    <content><![CDATA[<p>没有SPJ差评</p>
+<p>有大佬说没有偶数位的答案，然而我并不会证明，而且有11这个特例</p>
+<p>所以还是老老实实爆搜吧</p>
+<p>生成回文数并判断质数</p>
+<p>注意一定要排序。。。被坑了</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> LEN = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> s[LEN], l, r, ans[<span class="number">30000</span>], cnt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt; <span class="number">2</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">int</span> m = <span class="built_in">sqrt</span>(n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= m; ++i)</span><br><span class="line">		<span class="keyword">if</span> (!(n % i)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">0</span>, b;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; ++i) a = a * <span class="number">10</span> + s[i];</span><br><span class="line">	b = a;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = k - <span class="number">1</span>; ~i; --i) a = a * <span class="number">10</span> + s[i];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = k - <span class="number">2</span>; ~i; --i) b = b * <span class="number">10</span> + s[i];</span><br><span class="line">	<span class="keyword">if</span> (b &gt; r) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (b &gt;= l &amp;&amp; check(b)) ans[cnt++] = b;</span><br><span class="line">	<span class="keyword">if</span> (a &gt;= l &amp;&amp; a &lt;= r &amp;&amp; check(a)) ans[cnt++] = a;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		s[k] = i;</span><br><span class="line">		dfs(k + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;l, &amp;r);</span><br><span class="line">	<span class="keyword">for</span> (s[<span class="number">0</span>] = <span class="number">1</span>; s[<span class="number">0</span>] &lt;= <span class="number">9</span>; s[<span class="number">0</span>] += <span class="number">2</span>) dfs(<span class="number">1</span>);</span><br><span class="line">	sort(ans, ans + cnt);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; ++i) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+        <tag>Luogu</tag>
+        <tag>判断质数</tag>
       </tags>
   </entry>
 </search>
